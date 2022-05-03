@@ -11,8 +11,10 @@ class S24218P01 {
             for (int j = 1; j < 5; j++) {
                 if (counter < 6) {
                     black1 = (((((black1 << 3) + 0b100) << 3) + i - 1) << 3) + (((2 * j) - (i % 2)) - 1);
+                    white1 = (((((white1 << 3) + 0b100) << 3) + i + 4) << 3) + (((2 * j) - (i % 2)) - 1);
                 } else {
                     black2 = (((((black2 << 3) + 0b100) << 3) + i - 1) << 3) + (((2 * j) - (i % 2)) - 1);
+                    white2 = (((((white2 << 3) + 0b100) << 3) + i + 4) << 3) + (((2 * j) - (i % 2)) - 1);
                 }
                 counter++;
                 co++;
@@ -21,7 +23,7 @@ class S24218P01 {
 
             }
         }
-        long b1 = black1, b2 = black2;
+        long b1 = black1, b2 = black2, w1=white1, w2=white2;
         int x = 0, y = 0;
         for (int i = 0; i < 6; i++) {
             x = (int) (b1 % 8) + 1;
@@ -72,6 +74,38 @@ class S24218P01 {
 
                             if ((x == j+1) && (y == i+1)) {     //check if there is a pon
                                 System.out.print('\u2659'+ " ");
+                                turn = true;
+                            }
+                        }
+
+
+
+                        w1 = white1;      //important thing to reset value
+                        for (int k = 0; k < 6; k++) {
+                            x = (int) (w1 % 8) + 1;
+                            w1 = w1 >> 3;
+                            y = (int) (w1 % 8) + 1;
+                            w1 = w1 >> 3;
+                            w1 = w1 >> 3;
+
+                            if ((x == j+1) && (y == i+1)) {     //check if there is a pon
+                                System.out.print('\u265F'+ " ");
+                                turn = true;
+                            }
+                        }
+
+
+
+                        w2 = white2;      //important thing to reset value
+                        for (int k = 0; k < 6; k++) {
+                            x = (int) (w2 % 8) + 1;
+                            w2 = w2 >> 3;
+                            y = (int) (w2 % 8) + 1;
+                            w2 = w2 >> 3;
+                            w2 = w2 >> 3;
+
+                            if ((x == j+1) && (y == i+1)) {     //check if there is a pon
+                                System.out.print('\u265F'+ " ");
                                 turn = true;
                             }
                         }
