@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public
 class S24218P01 {
     public static void main(String[] args) {
@@ -6,6 +8,8 @@ class S24218P01 {
                 white1 = 0,
                 white2 = 0;
         int counter = 0, co = 0;
+        Scanner scannerChar=new Scanner(System.in);
+        Scanner scannerInt=new Scanner(System.in);
 
         for (int i = 1; i < 4; i++) {
             for (int j = 1; j < 5; j++) {
@@ -25,22 +29,7 @@ class S24218P01 {
         }
         long b1 = black1, b2 = black2, w1=white1, w2=white2;
         int x = 0, y = 0;
-        for (int i = 0; i < 6; i++) {
-            x = (int) (b1 % 8) + 1;
-            b1 = b1 >> 3;
-            y = (int) (b1 % 8) + 1;
-            b1 = b1 >> 3;
-            b1 = b1 >> 3;
-            System.out.println("x:" + x + " y:" + y);
-        }
-        for (int i = 0; i < 6; i++) {
-            x = (int) (b2 % 8) + 1;
-            b2 = b2 >> 3;
-            y = (int) (b2 % 8) + 1;
-            b2 = b2 >> 3;
-            b2 = b2 >> 3;
-            System.out.println("x:" + x + " y:" + y);
-        }
+        int s1,s2,s3;
         boolean turn = false;
 
         for (int i = 7; i > -1; i--) {
@@ -48,15 +37,22 @@ class S24218P01 {
 
 
 
-                        b1 = black1;      //important thing to reset value
+                        b1 = black1;      //important thing to reset value  //////!!!!! add check if checker isn't beaten
                         for (int k = 0; k < 6; k++) {
                             x = (int) (b1 % 8) + 1;
                             b1 = b1 >> 3;
                             y = (int) (b1 % 8) + 1;
                             b1 = b1 >> 3;
-                            b1 = b1 >> 3;
 
-                            if ((x == j+1) && (y == i+1)) {     //check if there is a pon
+                            s1=(int) (b1%2);
+                            b1=b1>>1;
+                            s2=(int) (b1%2);
+                            b1=b1>>1;
+                            s3=(int) (b1%2);
+                            b1=b1>>1;
+
+
+                            if ((s3==1)&&(x == j+1) && (y == i+1)) {     //check if there is a pon
                                 System.out.print('\u2659'+ " ");
                                 turn = true;
                             }
@@ -70,9 +66,15 @@ class S24218P01 {
                             b2 = b2 >> 3;
                             y = (int) (b2 % 8) + 1;
                             b2 = b2 >> 3;
-                            b2 = b2 >> 3;
 
-                            if ((x == j+1) && (y == i+1)) {     //check if there is a pon
+                            s1=(int) (b2%2);
+                            b2=b2>>1;
+                            s2=(int) (b2%2);
+                            b2=b2>>1;
+                            s3=(int) (b2%2);
+                            b2=b2>>1;
+
+                            if ((s3==1)&&(x == j+1) && (y == i+1)) {     //check if there is a pon
                                 System.out.print('\u2659'+ " ");
                                 turn = true;
                             }
@@ -86,9 +88,15 @@ class S24218P01 {
                             w1 = w1 >> 3;
                             y = (int) (w1 % 8) + 1;
                             w1 = w1 >> 3;
-                            w1 = w1 >> 3;
 
-                            if ((x == j+1) && (y == i+1)) {     //check if there is a pon
+                            s1=(int) (w1%2);
+                            w1=w1>>1;
+                            s2=(int) (w1%2);
+                            w1=w1>>1;
+                            s3=(int) (w1%2);
+                            w1=w1>>1;
+
+                            if ((s3==1)&&(x == j+1) && (y == i+1)) {     //check if there is a pon
                                 System.out.print('\u265F'+ " ");
                                 turn = true;
                             }
@@ -102,12 +110,21 @@ class S24218P01 {
                             w2 = w2 >> 3;
                             y = (int) (w2 % 8) + 1;
                             w2 = w2 >> 3;
-                            w2 = w2 >> 3;
 
-                            if ((x == j+1) && (y == i+1)) {     //check if there is a pon
+                            s1=(int) (w2%2);
+                            w2=w2>>1;
+                            s2=(int) (w2%2);
+                            w2=w2>>1;
+                            s3=(int) (w2%2);
+                            w2=w2>>1;
+
+
+                            if ((s3==1)&&(x == j+1) && (y == i+1)) {     //check if there is a pon
                                 System.out.print('\u265F'+ " ");
                                 turn = true;
                             }
+
+
                         }
 
 
@@ -119,6 +136,45 @@ class S24218P01 {
             }
             System.out.println();
         }
+
+
+        boolean isChosen=false;
+        char charSc;
+        int intSc;
+        System.out.println("choose your checker");
+        charSc= scannerChar.next().charAt(0);//char scanner
+        intSc= scannerInt.nextInt();
+        while(!isChosen){
+
+        //paste appr 50-120 //check cords provided //get arguments: colorIsCorret, is checker(or queen), is on board
+
+        if(isChecker){
+            System.out.println("choose action:");//max 3 for checker
+            charSc= scannerChar.next().charAt(0);//char scanner
+            intSc= scannerInt.nextInt();
+//paste appr 50-120 //check cords provided //get arguments: colorIsCorret,
+            //if y1= y2-1-->check if path isn't blocked
+            //if y1= y2-2 && x1=x2-2--> check if pass isn't blocked and there is a checkler of different color in the x1+1 y1+1 point
+
+            if (){
+                //change pos + action
+
+                isChosen=true;
+            }
+
+
+        }else{
+
+            //...
+            isChosen=true;
+
+        }
+
+        }
+        isChosen=false;
+
+
+
 
     }
 }
