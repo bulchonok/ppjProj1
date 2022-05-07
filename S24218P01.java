@@ -36,8 +36,11 @@ class S24218P01 {
         while (!gameEnd) {
 
 
+
             for (int i = 7; i > -1; i--) {
+                System.out.print((char)(65+i)+" |");
                 for (int j = 0; j < 8; j++) {
+
 
 
                     b1 = black1;      //important thing to reset value  //////!!!!! add check if checker isn't beaten
@@ -132,14 +135,20 @@ class S24218P01 {
                     turn = false;
 
                 }
+                System.out.print("| "+(char)(65+i));
                 System.out.println();
             }
+
+
+
             int x1 = 0, y1 = 0;
             boolean isChosen = false, isDamka = false;
             char charSc = 0;
             int intSc = 0;
 
             CountTurn++;
+
+            System.out.println(CountTurn%2==1?"white's turn":"black's turn");
 
             while (!isChosen) {
                 if (!isChosen) {
@@ -168,17 +177,17 @@ class S24218P01 {
                     b1 = b1 >> 1;
 
 
-                    if ((s3 == 1) && (x+1 == intSc) && (y+1 == ((int) charSc - 64))) {
+                    if ((s3 == 1) && (x + 1 == intSc) && (y + 1 == ((int) charSc - 64))) {
                         if (s1 == CountTurn % 2) {
 
 
-                            isDamka =s2==1;
-                            x1 = intSc-1;
-                            y1 = ((int) charSc - 64)-1;
+                            isDamka = s2 == 1;
+                            x1 = intSc - 1;
+                            y1 = ((int) charSc - 64) - 1;
                             isChosen = true;
 
 
-                        }else {
+                        } else {
                             System.out.println("wrong color 1");
                         }
                     }
@@ -200,17 +209,17 @@ class S24218P01 {
                     b2 = b2 >> 1;
 
 
-                    if ((s3 == 1) && (x+1 == intSc) && (y+1 == ((int) charSc - 64))) {
+                    if ((s3 == 1) && (x + 1 == intSc) && (y + 1 == ((int) charSc - 64))) {
                         if (s1 == CountTurn % 2) {
 
 
-                            isDamka =s2==1;
-                            x1 = intSc-1;
-                            y1 = ((int) charSc - 64)-1;
+                            isDamka = s2 == 1;
+                            x1 = intSc - 1;
+                            y1 = ((int) charSc - 64) - 1;
                             isChosen = true;
 
 
-                        }else {
+                        } else {
                             System.out.println("wrong color 2");
                         }
                     }
@@ -232,19 +241,19 @@ class S24218P01 {
                     w1 = w1 >> 1;
 
 
-                    if ((s3 == 1) && (x+1 == intSc) && (y+1 == ((int) charSc - 64))) {
+                    if ((s3 == 1) && (x + 1 == intSc) && (y + 1 == ((int) charSc - 64))) {
                         if (s1 == CountTurn % 2) {
 
 
-                            isDamka =s2==1;
-                            x1 = intSc-1;
-                            y1 = ((int) charSc - 64)-1;
+                            isDamka = s2 == 1;
+                            x1 = intSc - 1;
+                            y1 = ((int) charSc - 64) - 1;
                             isChosen = true;
 
 
-                        }else {
+                        } else {
                             System.out.println("wrong color 3");
-                            System.out.println(s1 +" = "+CountTurn % 2);
+                            System.out.println(s1 + " = " + CountTurn % 2);
                         }
                     }
                 }
@@ -265,17 +274,17 @@ class S24218P01 {
                     w2 = w2 >> 1;
 
 
-                    if ((s3 == 1) && (x+1 == intSc) && (y+1 == ((int) charSc - 64))) {
+                    if ((s3 == 1) && (x + 1 == intSc) && (y + 1 == ((int) charSc - 64))) {
                         if (s1 == CountTurn % 2) {
 
 
-                            isDamka =s2==1;
-                            x1 = intSc-1;
-                            y1 = ((int) charSc - 64)-1;
+                            isDamka = s2 == 1;
+                            x1 = intSc - 1;
+                            y1 = ((int) charSc - 64) - 1;
                             isChosen = true;
 
 
-                        }else {
+                        } else {
                             System.out.println("wrong color 4");
                         }
                     }
@@ -390,12 +399,13 @@ class S24218P01 {
 
                                                                     }
 
-                                                                } else if (((x1 == x2 - 2) || (x1 == x2 + 2)) && ((CountTurn%2 == 1 && y2 + 2 == y1) || (CountTurn%2 == 0 && y2 - 2 == y1))) {
+                                                                } else if ((((x1 == x2 - 2) || (x1 == x2 + 2)) )&& ((CountTurn%2 == 1 && y2 + 2 == y1) || (CountTurn%2 == 0 && y2 - 2 == y1))) {
                                                                     int xSR = x2 - x1 < 0 ? x2 - 1 : x2 + 1, ySR = CountTurn%2 == 1 ? y2 + 1 : y2 - 1;
-                                                                    boolean isPusta = true;
+                                                                    int isNotEmpty = 0;
+                                                                    int change=0;
                                                                     for (int i = 0; i < 2; i++) {
 
-
+                                                                        System.out.println("is not empty :"+isNotEmpty);
                                                                         MoveNotMade = 0;
                                                                         b1 = black1;      //important thing to reset value  //////!!!!! add check if checker isn't beaten
                                                                         for (int k = 0; k < 6; k++) {
@@ -415,16 +425,14 @@ class S24218P01 {
                                                                                 case 0 -> {
 
                                                                                     if (x2 == x && y2 == y) {
-                                                                                        isPusta = false;
+                                                                                        isNotEmpty++;
                                                                                     }
 
                                                                                 }
                                                                                 case 1 -> {
 
-                                                                                    if (x == xSR && y == ySR && s1 != CountTurn%2 && isPusta) {
-                                                                                        //change to beaten stan
-
-
+                                                                                    if (x == xSR && y == ySR && s1 != CountTurn%2 && isNotEmpty==0) {
+                                                                                        change=1;
                                                                                     }
 
                                                                                 }
@@ -450,9 +458,21 @@ class S24218P01 {
                                                                             s3 = (int) (b2 % 2);
                                                                             b2 = b2 >> 1;
 
-                                                                            if (x == x1 && (y1 + 1) == y && y != 7) {     //check if there is a pon
-                                                                                System.out.println("wrong move: path blocked");
-                                                                                MoveNotMade++;
+                                                                            switch (i) {
+                                                                                case 0 -> {
+
+                                                                                    if (x2 == x && y2 == y) {
+                                                                                        isNotEmpty++;
+                                                                                    }
+
+                                                                                }
+                                                                                case 1 -> {
+
+                                                                                    if (x == xSR && y == ySR && s1 != CountTurn%2 && isNotEmpty<24) {
+                                                                                        change=2;
+                                                                                    }
+
+                                                                                }
                                                                             }
                                                                         }
 
@@ -471,9 +491,21 @@ class S24218P01 {
                                                                             s3 = (int) (w1 % 2);
                                                                             w1 = w1 >> 1;
 
-                                                                            if (x == x1 && (y1 + 1) == y && y != 7) {     //check if there is a pon
-                                                                                System.out.println("wrong move: path blocked");
-                                                                                MoveNotMade++;
+                                                                            switch (i) {
+                                                                                case 0 -> {
+
+                                                                                    if (x2 == x && y2 == y) {
+                                                                                        isNotEmpty++;
+                                                                                    }
+
+                                                                                }
+                                                                                case 1 -> {
+
+                                                                                    if (x == xSR && y == ySR && s1 != CountTurn%2 && isNotEmpty<24) {
+                                                                                        change=3;
+                                                                                    }
+
+                                                                                }
                                                                             }
                                                                         }
 
@@ -493,24 +525,114 @@ class S24218P01 {
                                                                             w2 = w2 >> 1;
 
 
-                                                                            if (x == x1 && (y1 + 1) == y && y != 7) {     //check if there is a pon
-                                                                                System.out.println("wrong move: path blocked");
-                                                                                MoveNotMade++;
+                                                                            switch (i) {
+                                                                                case 0 -> {
+
+                                                                                    if (x2 == x && y2 == y) {
+                                                                                        isNotEmpty++;
+                                                                                    }
+
+                                                                                }
+                                                                                case 1 -> {
+
+                                                                                    if (x == xSR && y == ySR && s1 != CountTurn%2 && isNotEmpty<24) {
+                                                                                        change=4;
+                                                                                    }
+
+                                                                                }
                                                                             }
 
                                                                         }
 
 
                                                                     }
+                                                                    if(change==0){
+                                                                        MoveNotMade=1;
+                                                                        System.out.println("yes");
+                                                                    }
+                                                                    if (change!=0){
+                                                                        System.out.println("test1");
+                                                                        long buffer = 0;
+                                                                        long difBuffer=0;
+                                                                    switch (change){
+                                                                        case 1->{
+                                                                            difBuffer=black1;
+                                                                        }
+                                                                        case 2->{
+                                                                            difBuffer=black2;
+                                                                        }
+                                                                        case 3->{
+                                                                            difBuffer=white1;
+                                                                        }
+                                                                        case 4->{
+                                                                            difBuffer=white2;
+                                                                        }
+                                                                    }
+                                                                        System.out.println("test2");
+                                                                        for (int k = 0; k < 6; k++) {
 
+                                                                            x = (int) (difBuffer % 8);
+                                                                            difBuffer = difBuffer >> 3;
+                                                                            y = (int) (difBuffer % 8);
+                                                                            difBuffer = difBuffer >> 3;
+
+                                                                            s1 = (int) (difBuffer % 2);
+                                                                            difBuffer = difBuffer >> 1;
+                                                                            s2 = (int) (difBuffer % 2);
+                                                                            difBuffer = difBuffer >> 1;
+                                                                            s3 = (int) (difBuffer % 2);
+                                                                            difBuffer = difBuffer >> 1;
+
+                                                                            if (s2==0){
+                                                                                if (y==7)s2=1;
+                                                                            }
+
+
+                                                                            if ((x == xSR) && (y == ySR)) {
+                                                                                s3=0;
+                                                                                buffer = ((((((( (buffer<<1)+s3 << 1) + s2) << 1) + s1) << 3) + y) << 3) + x;
+
+                                                                            } else {
+                                                                                buffer = ((((((( (buffer<<1)+s3 << 1) + s2) << 1) + s1) << 3) + y) << 3) + x;
+                                                                            }
+
+                                                                        }
+                                                                        switch (change){
+                                                                            case 1->{
+                                                                                black1=buffer;
+                                                                                System.out.println("test3");
+                                                                            }
+                                                                            case 2->{
+                                                                                black2=buffer;
+                                                                                System.out.println("test3");
+
+                                                                            }
+                                                                            case 3->{
+                                                                                white1=buffer;
+                                                                                System.out.println("test3");
+
+                                                                            }
+                                                                            case 4->{
+                                                                                white2=buffer;
+                                                                                System.out.println("test3");
+
+                                                                            }
+                                                                        }
+
+                                                                    }
 
                                                                 }
 
 
                                                             } else {
-                                                                System.out.println("make a move:");//max 3 for checker
+                                                                System.out.println("make a move:");
                                                                 charSc = scannerChar.next().charAt(0);//char scanner
                                                                 intSc = scannerInt.nextInt();
+                                                                if (charSc < 65 || charSc > 72 || intSc < 1 || intSc > 8) {
+                                                                    System.out.println("Wrong move: make a move");
+                                                                    charSc = scannerChar.next().charAt(0);//char scanner
+                                                                    intSc = scannerInt.nextInt();
+                                                                }
                                                                 //paste appr 50-120 //check cords provided //get arguments: colorIsCorret,
                                                                 //...
 
@@ -534,6 +656,9 @@ class S24218P01 {
                 s3 = (int) (b1 % 2);
                 b1 = b1 >> 1;
 
+                if (s2==0){
+                    if (y==7)s2=1;
+                }
 
                 if ((s3 == 1) && (x == x1) && (y == y1)) {     //check if there is a pon
 
@@ -564,6 +689,10 @@ class S24218P01 {
                 s3 = (int) (b2 % 2);
                 b2 = b2 >> 1;
 
+                if (s2==0){
+                    if (y==7)s2=1;
+                }
+
                 if ((s3 == 1) && (x == x1) && (y == y1)) {     //check if there is a pon
 
                     buffer =  ((((((( (buffer<<1)+s3 << 1) + s2) << 1) + s1) << 3) + y2) << 3) + x2;
@@ -589,6 +718,10 @@ class S24218P01 {
                 w1 = w1 >> 1;
                 s3 = (int) (w1 % 2);
                 w1 = w1 >> 1;
+
+                if (s2==0){
+                    if (y==0)s2=1;
+                }
 
                 if ((s3 == 1) && (x == x1) && (y == y1)) {     //check if there is a pon
 
@@ -616,6 +749,9 @@ class S24218P01 {
                 s3 = (int) (w2 % 2);
                 w2 = w2 >> 1;
 
+                if (s2==0){
+                    if (y==0)s2=1;
+                }
 
                 if ((s3 == 1) && (x == x1) && (y == y1)) {     //check if there is a pon
 
@@ -627,7 +763,6 @@ class S24218P01 {
 
 
             }white2=buffer;
-            // find x1y1 and change to intsc chrac
 
 
         }
