@@ -15,10 +15,10 @@ class S24218P01 {
             for (int j = 1; j < 5; j++) {
                 if (counter < 6) {
                     black1 = (((((black1 << 3) + 0b100) << 3) + i - 1) << 3) + (((2 * j) - (i % 2)) - 1);
-                    white1 = (((((white1 << 3) + 0b101) << 3) + i + 4) << 3) + (((2 * j) - (i % 2)) - 1);
+                    white1 = (((((white1 << 3) + 0b101) << 3) + i + 4) << 3) + ((2 * j) - ((i+1) % 2))-1;
                 } else {
                     black2 = (((((black2 << 3) + 0b100) << 3) + i - 1) << 3) + (((2 * j) - (i % 2)) - 1);
-                    white2 = (((((white2 << 3) + 0b101) << 3) + i + 4) << 3) + (((2 * j) - (i % 2)) - 1);
+                    white2 = (((((white2 << 3) + 0b101) << 3) + i + 4) << 3) +((2 * j) - ((i+1) % 2))-1;
                 }
                 counter++;
                 co++;
@@ -289,230 +289,230 @@ class S24218P01 {
 
             int MoveNotMade = 1;
             int x2 = x1, y2 = y1;
-            while (MoveNotMade != 0) {
-                if (!isDamka) {
-                    System.out.println("make a move:");//max 3 for checker
-                    charSc = scannerChar.next().charAt(0);//char scanner
-                    intSc = scannerInt.nextInt();
-                    y2 = ((int) charSc - 64)-1;
-                    x2 = intSc-1;
+                                                        while (MoveNotMade != 0) {
+                                                            if (!isDamka) {
+                                                                System.out.println("make a move:");//max 3 for checker
+                                                                charSc = scannerChar.next().charAt(0);//char scanner
+                                                                intSc = scannerInt.nextInt();
+                                                                y2 = ((int) charSc - 64)-1;
+                                                                x2 = intSc-1;
 
-                    if (x1 == x2 && ((CountTurn%2 == 1 && y2 + 1 == y1) || (CountTurn%2 == 0 && y2 - 1 == y1))) {
-                        MoveNotMade = 0;
-                        b1 = black1;      //important thing to reset value  //////!!!!! add check if checker isn't beaten
-                        for (int k = 0; k < 6; k++) {
-                            x = (int) (b1 % 8);
-                            b1 = b1 >> 3;
-                            y = (int) (b1 % 8);
-                            b1 = b1 >> 3;
+                                                                if ((x1 == (x2+1)||(x1 == (x2-1)))&& ((CountTurn%2 == 1 && y2 + 1 == y1) || (CountTurn%2 == 0 && y2 - 1 == y1))) {
+                                                                    MoveNotMade = 0;
+                                                                    b1 = black1;      //important thing to reset value  //////!!!!! add check if checker isn't beaten
+                                                                    for (int k = 0; k < 6; k++) {
+                                                                        x = (int) (b1 % 8);
+                                                                        b1 = b1 >> 3;
+                                                                        y = (int) (b1 % 8);
+                                                                        b1 = b1 >> 3;
 
-                            s1 = (int) (b1 % 2);
-                            b1 = b1 >> 1;
-                            s2 = (int) (b1 % 2);
-                            b1 = b1 >> 1;
-                            s3 = (int) (b1 % 2);
-                            b1 = b1 >> 1;
-
-
-                            if (x == x2 && y == y2) {     //check if there is a pon
-                                System.out.println("wrong move: path blocked");
-                                MoveNotMade++;
-                            }
-                        }
+                                                                        s1 = (int) (b1 % 2);
+                                                                        b1 = b1 >> 1;
+                                                                        s2 = (int) (b1 % 2);
+                                                                        b1 = b1 >> 1;
+                                                                        s3 = (int) (b1 % 2);
+                                                                        b1 = b1 >> 1;
 
 
-                        b2 = black2;      //important thing to reset value
-                        for (int k = 0; k < 6; k++) {
-                            x = (int) (b2 % 8);
-                            b2 = b2 >> 3;
-                            y = (int) (b2 % 8);
-                            b2 = b2 >> 3;
-
-                            s1 = (int) (b2 % 2);
-                            b2 = b2 >> 1;
-                            s2 = (int) (b2 % 2);
-                            b2 = b2 >> 1;
-                            s3 = (int) (b2 % 2);
-                            b2 = b2 >> 1;
-
-                            if (x == x2 && y == y2) {     //check if there is a pon
-                                System.out.println("wrong move: path blocked");
-                                MoveNotMade++;
-                            }
-                        }
+                                                                        if (x == x2 && y == y2) {     //check if there is a pon
+                                                                            System.out.println("wrong move: path blocked");
+                                                                            MoveNotMade++;
+                                                                        }
+                                                                    }
 
 
-                        w1 = white1;      //important thing to reset value
-                        for (int k = 0; k < 6; k++) {
-                            x = (int) (w1 % 8);
-                            w1 = w1 >> 3;
-                            y = (int) (w1 % 8);
-                            w1 = w1 >> 3;
+                                                                    b2 = black2;      //important thing to reset value
+                                                                    for (int k = 0; k < 6; k++) {
+                                                                        x = (int) (b2 % 8);
+                                                                        b2 = b2 >> 3;
+                                                                        y = (int) (b2 % 8);
+                                                                        b2 = b2 >> 3;
 
-                            s1 = (int) (w1 % 2);
-                            w1 = w1 >> 1;
-                            s2 = (int) (w1 % 2);
-                            w1 = w1 >> 1;
-                            s3 = (int) (w1 % 2);
-                            w1 = w1 >> 1;
+                                                                        s1 = (int) (b2 % 2);
+                                                                        b2 = b2 >> 1;
+                                                                        s2 = (int) (b2 % 2);
+                                                                        b2 = b2 >> 1;
+                                                                        s3 = (int) (b2 % 2);
+                                                                        b2 = b2 >> 1;
 
-                            if (x == x2 && y == y2) {     //check if there is a pon
-                                System.out.println("wrong move: path blocked");
-                                MoveNotMade++;
-                            }
-                        }
-
-
-                        w2 = white2;      //important thing to reset value
-                        for (int k = 0; k < 6; k++) {
-                            x = (int) (w2 % 8);
-                            w2 = w2 >> 3;
-                            y = (int) (w2 % 8);
-                            w2 = w2 >> 3;
-
-                            s1 = (int) (w2 % 2);
-                            w2 = w2 >> 1;
-                            s2 = (int) (w2 % 2);
-                            w2 = w2 >> 1;
-                            s3 = (int) (w2 % 2);
-                            w2 = w2 >> 1;
+                                                                        if (x == x2 && y == y2) {     //check if there is a pon
+                                                                            System.out.println("wrong move: path blocked");
+                                                                            MoveNotMade++;
+                                                                        }
+                                                                    }
 
 
-                            if (x == x2 && y == y2) {     //check if there is a pon
-                                System.out.println("wrong move: path blocked");
-                                MoveNotMade++;
-                            }
+                                                                    w1 = white1;      //important thing to reset value
+                                                                    for (int k = 0; k < 6; k++) {
+                                                                        x = (int) (w1 % 8);
+                                                                        w1 = w1 >> 3;
+                                                                        y = (int) (w1 % 8);
+                                                                        w1 = w1 >> 3;
 
-                        }
+                                                                        s1 = (int) (w1 % 2);
+                                                                        w1 = w1 >> 1;
+                                                                        s2 = (int) (w1 % 2);
+                                                                        w1 = w1 >> 1;
+                                                                        s3 = (int) (w1 % 2);
+                                                                        w1 = w1 >> 1;
 
-                    } else if (((x1 == x2 - 2) || (x1 == x2 + 2)) && ((CountTurn%2 == 1 && y2 + 2 == y1) || (CountTurn%2 == 0 && y2 - 2 == y1))) {
-                        int xSR = x2 - x1 < 0 ? x2 - 1 : x2 + 1, ySR = CountTurn%2 == 1 ? y2 + 1 : y2 - 1;
-                        boolean isPusta = true;
-                        for (int i = 0; i < 2; i++) {
-
-
-                            MoveNotMade = 0;
-                            b1 = black1;      //important thing to reset value  //////!!!!! add check if checker isn't beaten
-                            for (int k = 0; k < 6; k++) {
-                                x = (int) (b1 % 8);
-                                b1 = b1 >> 3;
-                                y = (int) (b1 % 8);
-                                b1 = b1 >> 3;
-
-                                s1 = (int) (b1 % 2);
-                                b1 = b1 >> 1;
-                                s2 = (int) (b1 % 2);
-                                b1 = b1 >> 1;
-                                s3 = (int) (b1 % 2);
-                                b1 = b1 >> 1;
-
-                                switch (i) {
-                                    case 0 -> {
-
-                                        if (x2 == x && y2 == y) {
-                                            isPusta = false;
-                                        }
-
-                                    }
-                                    case 1 -> {
-
-                                        if (x == xSR && y == ySR && s1 != CountTurn%2 && isPusta) {
-                                            //change to beaten stan
+                                                                        if (x == x2 && y == y2) {     //check if there is a pon
+                                                                            System.out.println("wrong move: path blocked");
+                                                                            MoveNotMade++;
+                                                                        }
+                                                                    }
 
 
-                                        }
+                                                                    w2 = white2;      //important thing to reset value
+                                                                    for (int k = 0; k < 6; k++) {
+                                                                        x = (int) (w2 % 8);
+                                                                        w2 = w2 >> 3;
+                                                                        y = (int) (w2 % 8);
+                                                                        w2 = w2 >> 3;
 
-                                    }
-                                }
-                                                                                                        /*if () {     //check if there is a pon
-                                                                                                            System.out.println("wrong move: can't be beaten");
-                                                                                                            MoveNotMade++;
-                                                                                                        }*/
-                            }
-
-
-                            b2 = black2;      //important thing to reset value
-                            for (int k = 0; k < 6; k++) {
-                                x = (int) (b2 % 8);
-                                b2 = b2 >> 3;
-                                y = (int) (b2 % 8);
-                                b2 = b2 >> 3;
-
-                                s1 = (int) (b2 % 2);
-                                b2 = b2 >> 1;
-                                s2 = (int) (b2 % 2);
-                                b2 = b2 >> 1;
-                                s3 = (int) (b2 % 2);
-                                b2 = b2 >> 1;
-
-                                if (x == x1 && (y1 + 1) == y && y != 7) {     //check if there is a pon
-                                    System.out.println("wrong move: path blocked");
-                                    MoveNotMade++;
-                                }
-                            }
+                                                                        s1 = (int) (w2 % 2);
+                                                                        w2 = w2 >> 1;
+                                                                        s2 = (int) (w2 % 2);
+                                                                        w2 = w2 >> 1;
+                                                                        s3 = (int) (w2 % 2);
+                                                                        w2 = w2 >> 1;
 
 
-                            w1 = white1;      //important thing to reset value
-                            for (int k = 0; k < 6; k++) {
-                                x = (int) (w1 % 8);
-                                w1 = w1 >> 3;
-                                y = (int) (w1 % 8);
-                                w1 = w1 >> 3;
+                                                                        if (x == x2 && y == y2) {     //check if there is a pon
+                                                                            System.out.println("wrong move: path blocked");
+                                                                            MoveNotMade++;
+                                                                        }
 
-                                s1 = (int) (w1 % 2);
-                                w1 = w1 >> 1;
-                                s2 = (int) (w1 % 2);
-                                w1 = w1 >> 1;
-                                s3 = (int) (w1 % 2);
-                                w1 = w1 >> 1;
+                                                                    }
 
-                                if (x == x1 && (y1 + 1) == y && y != 7) {     //check if there is a pon
-                                    System.out.println("wrong move: path blocked");
-                                    MoveNotMade++;
-                                }
-                            }
+                                                                } else if (((x1 == x2 - 2) || (x1 == x2 + 2)) && ((CountTurn%2 == 1 && y2 + 2 == y1) || (CountTurn%2 == 0 && y2 - 2 == y1))) {
+                                                                    int xSR = x2 - x1 < 0 ? x2 - 1 : x2 + 1, ySR = CountTurn%2 == 1 ? y2 + 1 : y2 - 1;
+                                                                    boolean isPusta = true;
+                                                                    for (int i = 0; i < 2; i++) {
 
 
-                            w2 = white2;      //important thing to reset value
-                            for (int k = 0; k < 6; k++) {
-                                x = (int) (w2 % 8);
-                                w2 = w2 >> 3;
-                                y = (int) (w2 % 8);
-                                w2 = w2 >> 3;
+                                                                        MoveNotMade = 0;
+                                                                        b1 = black1;      //important thing to reset value  //////!!!!! add check if checker isn't beaten
+                                                                        for (int k = 0; k < 6; k++) {
+                                                                            x = (int) (b1 % 8);
+                                                                            b1 = b1 >> 3;
+                                                                            y = (int) (b1 % 8);
+                                                                            b1 = b1 >> 3;
 
-                                s1 = (int) (w2 % 2);
-                                w2 = w2 >> 1;
-                                s2 = (int) (w2 % 2);
-                                w2 = w2 >> 1;
-                                s3 = (int) (w2 % 2);
-                                w2 = w2 >> 1;
+                                                                            s1 = (int) (b1 % 2);
+                                                                            b1 = b1 >> 1;
+                                                                            s2 = (int) (b1 % 2);
+                                                                            b1 = b1 >> 1;
+                                                                            s3 = (int) (b1 % 2);
+                                                                            b1 = b1 >> 1;
 
+                                                                            switch (i) {
+                                                                                case 0 -> {
 
-                                if (x == x1 && (y1 + 1) == y && y != 7) {     //check if there is a pon
-                                    System.out.println("wrong move: path blocked");
-                                    MoveNotMade++;
-                                }
+                                                                                    if (x2 == x && y2 == y) {
+                                                                                        isPusta = false;
+                                                                                    }
 
-                            }
+                                                                                }
+                                                                                case 1 -> {
 
-
-                        }
-
-
-                    }
-
-
-                } else {
-                    System.out.println("make a move:");//max 3 for checker
-                    charSc = scannerChar.next().charAt(0);//char scanner
-                    intSc = scannerInt.nextInt();
-                    //paste appr 50-120 //check cords provided //get arguments: colorIsCorret,
-                    //...
+                                                                                    if (x == xSR && y == ySR && s1 != CountTurn%2 && isPusta) {
+                                                                                        //change to beaten stan
 
 
-                }
+                                                                                    }
 
-            }
+                                                                                }
+                                                                            }
+                                                                                                                                                    /*if () {     //check if there is a pon
+                                                                                                                                                        System.out.println("wrong move: can't be beaten");
+                                                                                                                                                        MoveNotMade++;
+                                                                                                                                                    }*/
+                                                                        }
+
+
+                                                                        b2 = black2;      //important thing to reset value
+                                                                        for (int k = 0; k < 6; k++) {
+                                                                            x = (int) (b2 % 8);
+                                                                            b2 = b2 >> 3;
+                                                                            y = (int) (b2 % 8);
+                                                                            b2 = b2 >> 3;
+
+                                                                            s1 = (int) (b2 % 2);
+                                                                            b2 = b2 >> 1;
+                                                                            s2 = (int) (b2 % 2);
+                                                                            b2 = b2 >> 1;
+                                                                            s3 = (int) (b2 % 2);
+                                                                            b2 = b2 >> 1;
+
+                                                                            if (x == x1 && (y1 + 1) == y && y != 7) {     //check if there is a pon
+                                                                                System.out.println("wrong move: path blocked");
+                                                                                MoveNotMade++;
+                                                                            }
+                                                                        }
+
+
+                                                                        w1 = white1;      //important thing to reset value
+                                                                        for (int k = 0; k < 6; k++) {
+                                                                            x = (int) (w1 % 8);
+                                                                            w1 = w1 >> 3;
+                                                                            y = (int) (w1 % 8);
+                                                                            w1 = w1 >> 3;
+
+                                                                            s1 = (int) (w1 % 2);
+                                                                            w1 = w1 >> 1;
+                                                                            s2 = (int) (w1 % 2);
+                                                                            w1 = w1 >> 1;
+                                                                            s3 = (int) (w1 % 2);
+                                                                            w1 = w1 >> 1;
+
+                                                                            if (x == x1 && (y1 + 1) == y && y != 7) {     //check if there is a pon
+                                                                                System.out.println("wrong move: path blocked");
+                                                                                MoveNotMade++;
+                                                                            }
+                                                                        }
+
+
+                                                                        w2 = white2;      //important thing to reset value
+                                                                        for (int k = 0; k < 6; k++) {
+                                                                            x = (int) (w2 % 8);
+                                                                            w2 = w2 >> 3;
+                                                                            y = (int) (w2 % 8);
+                                                                            w2 = w2 >> 3;
+
+                                                                            s1 = (int) (w2 % 2);
+                                                                            w2 = w2 >> 1;
+                                                                            s2 = (int) (w2 % 2);
+                                                                            w2 = w2 >> 1;
+                                                                            s3 = (int) (w2 % 2);
+                                                                            w2 = w2 >> 1;
+
+
+                                                                            if (x == x1 && (y1 + 1) == y && y != 7) {     //check if there is a pon
+                                                                                System.out.println("wrong move: path blocked");
+                                                                                MoveNotMade++;
+                                                                            }
+
+                                                                        }
+
+
+                                                                    }
+
+
+                                                                }
+
+
+                                                            } else {
+                                                                System.out.println("make a move:");//max 3 for checker
+                                                                charSc = scannerChar.next().charAt(0);//char scanner
+                                                                intSc = scannerInt.nextInt();
+                                                                //paste appr 50-120 //check cords provided //get arguments: colorIsCorret,
+                                                                //...
+
+
+                                                            }
+
+                                                        }
 ///change place
             long buffer = 0;
             b1 = black1;      //important thing to reset value  //////!!!!! add check if checker isn't beaten
