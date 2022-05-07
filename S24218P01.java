@@ -294,6 +294,11 @@ class S24218P01 {
                                                                 System.out.println("make a move:");//max 3 for checker
                                                                 charSc = scannerChar.next().charAt(0);//char scanner
                                                                 intSc = scannerInt.nextInt();
+                                                                if (charSc < 65 || charSc > 72 || intSc < 1 || intSc > 8) {
+                                                                    System.out.println("Wrong move: make a move");
+                                                                    charSc = scannerChar.next().charAt(0);//char scanner
+                                                                    intSc = scannerInt.nextInt();
+                                                                }
                                                                 y2 = ((int) charSc - 64)-1;
                                                                 x2 = intSc-1;
 
