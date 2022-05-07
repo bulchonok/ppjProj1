@@ -137,11 +137,11 @@ class S24218P01 {
             System.out.println();
         }
 
-                int x1,y1, ThisColor;
+                int x1=0,y1=0, ThisColor=0;
 
-        boolean isChosen=false,isChecker;
-        char charSc;
-        int intSc, CountTurn=0;
+        boolean isChosen=false,isChecker=false;
+        char charSc=0;
+        int intSc=0, CountTurn=0;
         while(!isChosen){
         System.out.println("choose your checker");
         charSc= scannerChar.next().charAt(0);//char scanner
@@ -171,12 +171,14 @@ class S24218P01 {
                                         x1=intSc;
                                         y1=(int)charSc-64;
                                         ThisColor=s1;
+                                        isChosen=true;
                                     }
                                     case 0->{
                                         isChecker=true;
                                         x1=intSc;
                                         y1=(int)charSc-64;
                                         ThisColor=s1;
+                                        isChosen=true;
                                     }
                                 }
                             }
@@ -207,12 +209,14 @@ class S24218P01 {
                                         x1=intSc;
                                         y1=(int)charSc-64;
                                         ThisColor=s1;
+                                        isChosen=true;
                                     }
                                     case 0->{
                                         isChecker=true;
                                         x1=intSc;
                                         y1=(int)charSc-64;
                                         ThisColor=s1;
+                                        isChosen=true;
                                     }
                                 }
                             }
@@ -243,12 +247,14 @@ class S24218P01 {
                                         x1=intSc;
                                         y1=(int)charSc-64;
                                         ThisColor=s1;
+                                        isChosen=true;
                                     }
                                     case 0->{
                                         isChecker=true;
                                         x1=intSc;
                                         y1=(int)charSc-64;
                                         ThisColor=s1;
+                                        isChosen=true;
                                     }
                                 }
                             }
@@ -280,12 +286,14 @@ class S24218P01 {
                                         x1=intSc;
                                         y1=(int)charSc-64;
                                         ThisColor=s1;
+                                        isChosen=true;
                                     }
                                     case 0->{
                                         isChecker=true;
                                         x1=intSc;
                                         y1=(int)charSc-64;
                                         ThisColor=s1;
+                                        isChosen=true;
                                     }
                                 }
                             }
@@ -298,114 +306,222 @@ class S24218P01 {
 
         }
 
-            int MoveNotMade;
+            int MoveNotMade=0;
+        int x2=x1, y2=y1;
             while(MoveNotMade==0){
                 if(isChecker){
             System.out.println("make a move:");//max 3 for checker
             charSc= scannerChar.next().charAt(0);//char scanner
             intSc= scannerInt.nextInt();
-                if (x1==intSc && y1==((int)charSc-64)-1){
-                    MoveNotMade=0;
-                            b1 = black1;      //important thing to reset value  //////!!!!! add check if checker isn't beaten
-                            for (int k = 0; k < 6; k++) {
-                                x = (int) (b1 % 8) + 1;
-                                b1 = b1 >> 3;
-                                y = (int) (b1 % 8) + 1;
-                                b1 = b1 >> 3;
+            y2=(int)charSc-64;
+            x2=intSc;
 
-                                s1=(int) (b1%2);
-                                b1=b1>>1;
-                                s2=(int) (b1%2);
-                                b1=b1>>1;
-                                s3=(int) (b1%2);
-                                b1=b1>>1;
+                if (x1==x2 &&((ThisColor==1&&y2+1==y1)|| (ThisColor==0&&y2-1==y1))) {
+                    MoveNotMade = 0;
+                    b1 = black1;      //important thing to reset value  //////!!!!! add check if checker isn't beaten
+                    for (int k = 0; k < 6; k++) {
+                        x = (int) (b1 % 8) + 1;
+                        b1 = b1 >> 3;
+                        y = (int) (b1 % 8) + 1;
+                        b1 = b1 >> 3;
+
+                        s1 = (int) (b1 % 2);
+                        b1 = b1 >> 1;
+                        s2 = (int) (b1 % 2);
+                        b1 = b1 >> 1;
+                        s3 = (int) (b1 % 2);
+                        b1 = b1 >> 1;
 
 
-                                if (x==x1&&(y1+1)==y&&y!=8) {     //check if there is a pon
-                                    System.out.println("wrong move: path blocked");
-                                    MoveNotMade++;
+                        if (x == x2 && y == y2) {     //check if there is a pon
+                            System.out.println("wrong move: path blocked");
+                            MoveNotMade++;
+                        }
+                    }
+
+
+                    b2 = black2;      //important thing to reset value
+                    for (int k = 0; k < 6; k++) {
+                        x = (int) (b2 % 8) + 1;
+                        b2 = b2 >> 3;
+                        y = (int) (b2 % 8) + 1;
+                        b2 = b2 >> 3;
+
+                        s1 = (int) (b2 % 2);
+                        b2 = b2 >> 1;
+                        s2 = (int) (b2 % 2);
+                        b2 = b2 >> 1;
+                        s3 = (int) (b2 % 2);
+                        b2 = b2 >> 1;
+
+                        if (x == x2 && y == y2) {     //check if there is a pon
+                            System.out.println("wrong move: path blocked");
+                            MoveNotMade++;
+                        }
+                    }
+
+
+                    w1 = white1;      //important thing to reset value
+                    for (int k = 0; k < 6; k++) {
+                        x = (int) (w1 % 8) + 1;
+                        w1 = w1 >> 3;
+                        y = (int) (w1 % 8) + 1;
+                        w1 = w1 >> 3;
+
+                        s1 = (int) (w1 % 2);
+                        w1 = w1 >> 1;
+                        s2 = (int) (w1 % 2);
+                        w1 = w1 >> 1;
+                        s3 = (int) (w1 % 2);
+                        w1 = w1 >> 1;
+
+                        if (x == x2 && y == y2) {     //check if there is a pon
+                            System.out.println("wrong move: path blocked");
+                            MoveNotMade++;
+                        }
+                    }
+
+
+                    w2 = white2;      //important thing to reset value
+                    for (int k = 0; k < 6; k++) {
+                        x = (int) (w2 % 8) + 1;
+                        w2 = w2 >> 3;
+                        y = (int) (w2 % 8) + 1;
+                        w2 = w2 >> 3;
+
+                        s1 = (int) (w2 % 2);
+                        w2 = w2 >> 1;
+                        s2 = (int) (w2 % 2);
+                        w2 = w2 >> 1;
+                        s3 = (int) (w2 % 2);
+                        w2 = w2 >> 1;
+
+
+                        if (x == x2 && y == y2) {     //check if there is a pon
+                            System.out.println("wrong move: path blocked");
+                            MoveNotMade++;
+                        }
+
+                    }
+
+                }else if (((x1==x2-2)||(x1==x2+2) )&&((ThisColor==1&&y2+2==y1)||(ThisColor==0&&y2-2==y1))){
+                int xSR=x2-x1<0?x2-1:x2+1,ySR=ThisColor==1?y2+1:y2-1;
+                boolean isPusta=true;
+                    for (int i = 0; i < 2; i++) {
+
+
+                        MoveNotMade=0;
+                        b1 = black1;      //important thing to reset value  //////!!!!! add check if checker isn't beaten
+                        for (int k = 0; k < 6; k++) {
+                            x = (int) (b1 % 8) + 1;
+                            b1 = b1 >> 3;
+                            y = (int) (b1 % 8) + 1;
+                            b1 = b1 >> 3;
+
+                            s1=(int) (b1%2);
+                            b1=b1>>1;
+                            s2=(int) (b1%2);
+                            b1=b1>>1;
+                            s3=(int) (b1%2);
+                            b1=b1>>1;
+
+                            switch (i){
+                                case 0->{
+
+                                    if (x2==x&&y2==y){
+                                        isPusta=false;
+                                    }
+
+                                }
+                                case 1->{
+
+                                    if(x==xSR&&y==ySR&&s1!=ThisColor&&isPusta){
+//change to beaten stan
+
+
+                                    }
+
                                 }
                             }
+                            /*if () {     //check if there is a pon
+                                System.out.println("wrong move: can't be beaten");
+                                MoveNotMade++;
+                            }*/
+                        }
 
 
 
-                            b2 = black2;      //important thing to reset value
-                            for (int k = 0; k < 6; k++) {
-                                x = (int) (b2 % 8) + 1;
-                                b2 = b2 >> 3;
-                                y = (int) (b2 % 8) + 1;
-                                b2 = b2 >> 3;
+                        b2 = black2;      //important thing to reset value
+                        for (int k = 0; k < 6; k++) {
+                            x = (int) (b2 % 8) + 1;
+                            b2 = b2 >> 3;
+                            y = (int) (b2 % 8) + 1;
+                            b2 = b2 >> 3;
 
-                                s1=(int) (b2%2);
-                                b2=b2>>1;
-                                s2=(int) (b2%2);
-                                b2=b2>>1;
-                                s3=(int) (b2%2);
-                                b2=b2>>1;
+                            s1=(int) (b2%2);
+                            b2=b2>>1;
+                            s2=(int) (b2%2);
+                            b2=b2>>1;
+                            s3=(int) (b2%2);
+                            b2=b2>>1;
 
-                                if (x==x1&&(y1+1)==y&&y!=8) {     //check if there is a pon
-                                    System.out.println("wrong move: path blocked");
-                                    MoveNotMade++;
-                                }
+                            if (x==x1&&(y1+1)==y&&y!=8) {     //check if there is a pon
+                                System.out.println("wrong move: path blocked");
+                                MoveNotMade++;
+                            }
+                        }
+
+
+
+                        w1 = white1;      //important thing to reset value
+                        for (int k = 0; k < 6; k++) {
+                            x = (int) (w1 % 8) + 1;
+                            w1 = w1 >> 3;
+                            y = (int) (w1 % 8) + 1;
+                            w1 = w1 >> 3;
+
+                            s1=(int) (w1%2);
+                            w1=w1>>1;
+                            s2=(int) (w1%2);
+                            w1=w1>>1;
+                            s3=(int) (w1%2);
+                            w1=w1>>1;
+
+                            if (x==x1&&(y1+1)==y&&y!=8) {     //check if there is a pon
+                                System.out.println("wrong move: path blocked");
+                                MoveNotMade++;
+                            }
+                        }
+
+
+
+                        w2 = white2;      //important thing to reset value
+                        for (int k = 0; k < 6; k++) {
+                            x = (int) (w2 % 8) + 1;
+                            w2 = w2 >> 3;
+                            y = (int) (w2 % 8) + 1;
+                            w2 = w2 >> 3;
+
+                            s1=(int) (w2%2);
+                            w2=w2>>1;
+                            s2=(int) (w2%2);
+                            w2=w2>>1;
+                            s3=(int) (w2%2);
+                            w2=w2>>1;
+
+
+                            if (x==x1&&(y1+1)==y&&y!=8) {     //check if there is a pon
+                                System.out.println("wrong move: path blocked");
+                                MoveNotMade++;
                             }
 
+                        }
 
 
-                            w1 = white1;      //important thing to reset value
-                            for (int k = 0; k < 6; k++) {
-                                x = (int) (w1 % 8) + 1;
-                                w1 = w1 >> 3;
-                                y = (int) (w1 % 8) + 1;
-                                w1 = w1 >> 3;
-
-                                s1=(int) (w1%2);
-                                w1=w1>>1;
-                                s2=(int) (w1%2);
-                                w1=w1>>1;
-                                s3=(int) (w1%2);
-                                w1=w1>>1;
-
-                                if (x==x1&&(y1+1)==y&&y!=8) {     //check if there is a pon
-                                    System.out.println("wrong move: path blocked");
-                                    MoveNotMade++;
-                                }
-                            }
+                    }
 
 
 
-                            w2 = white2;      //important thing to reset value
-                            for (int k = 0; k < 6; k++) {
-                                x = (int) (w2 % 8) + 1;
-                                w2 = w2 >> 3;
-                                y = (int) (w2 % 8) + 1;
-                                w2 = w2 >> 3;
-
-                                s1=(int) (w2%2);
-                                w2=w2>>1;
-                                s2=(int) (w2%2);
-                                w2=w2>>1;
-                                s3=(int) (w2%2);
-                                w2=w2>>1;
-
-
-                                if (x==x1&&(y1+1)==y&&y!=8) {     //check if there is a pon
-                                    System.out.println("wrong move: path blocked");
-                                    MoveNotMade++;
-                                }
-
-                            }
-
-                }
-
-
-
-
-            //if y1= y2-2 && x1=x2-2--> check if pass isn't blocked and there is a checkler of different color in the x1+1 y1+1 point
-
-            if (){
-                //change pos + action
-        //s3==1 && s1!=ThisColor
-                isChosen=true;
             }
 
 
@@ -415,7 +531,7 @@ class S24218P01 {
             intSc= scannerInt.nextInt();
 //paste appr 50-120 //check cords provided //get arguments: colorIsCorret,
             //...
-            isChosen=true;
+
 
         }
 
@@ -436,12 +552,12 @@ class S24218P01 {
                                 s3=(int) (b1%2);
                                 b1=b1>>1;
 
-                                
+
 
 
                                 if ((s3==1)&&(x ==x1) && (y == y1)) {     //check if there is a pon
 
-                                    buffer=buffer+(((((((s3<<1)+s2)<<1)+s1)<<3)+(charSc-64))<<3)+intSc;
+                                    buffer=buffer+(((((((s3<<1)+s2)<<1)+s1)<<3)+y2)<<3)+x2;
 
                                 }else{
                                     buffer=buffer+(((((((s3<<1)+s2)<<1)+s1)<<3)+y)<<3)+x;
@@ -466,10 +582,14 @@ class S24218P01 {
                                 s3=(int) (b2%2);
                                 b2=b2>>1;
 
-                                if ((s3==1)&&(x == j+1) && (y == i+1)) {     //check if there is a pon
-                                    System.out.print('\u2659'+ " ");
-                                    turn = true;
+                                if ((s3==1)&&(x ==x1) && (y == y1)) {     //check if there is a pon
+
+                                    buffer=buffer+(((((((s3<<1)+s2)<<1)+s1)<<3)+(charSc-64))<<3)+intSc;
+
+                                }else{
+                                    buffer=buffer+(((((((s3<<1)+s2)<<1)+s1)<<3)+y)<<3)+x;
                                 }
+
                             }
 
 
@@ -488,10 +608,14 @@ class S24218P01 {
                                 s3=(int) (w1%2);
                                 w1=w1>>1;
 
-                                if ((s3==1)&&(x == j+1) && (y == i+1)) {     //check if there is a pon
-                                    System.out.print('\u265F'+ " ");
-                                    turn = true;
+                                if ((s3==1)&&(x ==x1) && (y == y1)) {     //check if there is a pon
+
+                                    buffer=buffer+(((((((s3<<1)+s2)<<1)+s1)<<3)+(charSc-64))<<3)+intSc;
+
+                                }else{
+                                    buffer=buffer+(((((((s3<<1)+s2)<<1)+s1)<<3)+y)<<3)+x;
                                 }
+
                             }
 
 
@@ -511,10 +635,14 @@ class S24218P01 {
                                 w2=w2>>1;
 
 
-                                if ((s3==1)&&(x == j+1) && (y == i+1)) {     //check if there is a pon
-                                    System.out.print('\u265F'+ " ");
-                                    turn = true;
+                                if ((s3==1)&&(x ==x1) && (y == y1)) {     //check if there is a pon
+
+                                    buffer=buffer+(((((((s3<<1)+s2)<<1)+s1)<<3)+(charSc-64))<<3)+intSc;
+
+                                }else{
+                                    buffer=buffer+(((((((s3<<1)+s2)<<1)+s1)<<3)+y)<<3)+x;
                                 }
+
 
 
                             }
