@@ -15,10 +15,10 @@ class S24218P01 {
             for (int j = 1; j < 5; j++) {
                 if (counter < 6) {
                     black1 = (((((black1 << 3) + 0b100) << 3) + i - 1) << 3) + (((2 * j) - (i % 2)) - 1);
-                    white1 = (((((white1 << 3) + 0b100) << 3) + i + 4) << 3) + (((2 * j) - (i % 2)) - 1);
+                    white1 = (((((white1 << 3) + 0b101) << 3) + i + 4) << 3) + (((2 * j) - (i % 2)) - 1);
                 } else {
                     black2 = (((((black2 << 3) + 0b100) << 3) + i - 1) << 3) + (((2 * j) - (i % 2)) - 1);
-                    white2 = (((((white2 << 3) + 0b100) << 3) + i + 4) << 3) + (((2 * j) - (i % 2)) - 1);
+                    white2 = (((((white2 << 3) + 0b101) << 3) + i + 4) << 3) + (((2 * j) - (i % 2)) - 1);
                 }
                 counter++;
                 co++;
@@ -30,7 +30,7 @@ class S24218P01 {
         /////////////////////////////////////////////////////////////////////////
         long b1 = black1, b2 = black2, w1 = white1, w2 = white2;
         int x = 0, y = 0;
-        int s1, s2, s3;
+        int s1, s2, s3, CountTurn = 0;
         boolean turn = false;
         boolean gameEnd = false;
         while (!gameEnd) {
@@ -134,10 +134,13 @@ class S24218P01 {
                 }
                 System.out.println();
             }
-            int x1 = 0, y1 = 0, ThisColor = 0;
+            int x1 = 0, y1 = 0;
             boolean isChosen = false, isDamka = false;
             char charSc = 0;
-            int intSc = 0, CountTurn = 0;
+            int intSc = 0;
+
+            CountTurn++;
+
             while (!isChosen) {
                 if (!isChosen) {
                     System.out.println("choose your checker");
@@ -172,10 +175,11 @@ class S24218P01 {
                             isDamka =s2==1;
                             x1 = intSc-1;
                             y1 = ((int) charSc - 64)-1;
-                            ThisColor = s1;
                             isChosen = true;
 
 
+                        }else {
+                            System.out.println("wrong color 1");
                         }
                     }
                 }
@@ -203,10 +207,11 @@ class S24218P01 {
                             isDamka =s2==1;
                             x1 = intSc-1;
                             y1 = ((int) charSc - 64)-1;
-                            ThisColor = s1;
                             isChosen = true;
 
 
+                        }else {
+                            System.out.println("wrong color 2");
                         }
                     }
                 }
@@ -234,10 +239,12 @@ class S24218P01 {
                             isDamka =s2==1;
                             x1 = intSc-1;
                             y1 = ((int) charSc - 64)-1;
-                            ThisColor = s1;
                             isChosen = true;
 
 
+                        }else {
+                            System.out.println("wrong color 3");
+                            System.out.println(s1 +" = "+CountTurn % 2);
                         }
                     }
                 }
@@ -265,10 +272,11 @@ class S24218P01 {
                             isDamka =s2==1;
                             x1 = intSc-1;
                             y1 = ((int) charSc - 64)-1;
-                            ThisColor = s1;
                             isChosen = true;
 
 
+                        }else {
+                            System.out.println("wrong color 4");
                         }
                     }
 
@@ -289,7 +297,7 @@ class S24218P01 {
                     y2 = ((int) charSc - 64)-1;
                     x2 = intSc-1;
 
-                    if (x1 == x2 && ((ThisColor == 1 && y2 + 1 == y1) || (ThisColor == 0 && y2 - 1 == y1))) {
+                    if (x1 == x2 && ((CountTurn%2 == 1 && y2 + 1 == y1) || (CountTurn%2 == 0 && y2 - 1 == y1))) {
                         MoveNotMade = 0;
                         b1 = black1;      //important thing to reset value  //////!!!!! add check if checker isn't beaten
                         for (int k = 0; k < 6; k++) {
@@ -377,8 +385,8 @@ class S24218P01 {
 
                         }
 
-                    } else if (((x1 == x2 - 2) || (x1 == x2 + 2)) && ((ThisColor == 1 && y2 + 2 == y1) || (ThisColor == 0 && y2 - 2 == y1))) {
-                        int xSR = x2 - x1 < 0 ? x2 - 1 : x2 + 1, ySR = ThisColor == 1 ? y2 + 1 : y2 - 1;
+                    } else if (((x1 == x2 - 2) || (x1 == x2 + 2)) && ((CountTurn%2 == 1 && y2 + 2 == y1) || (CountTurn%2 == 0 && y2 - 2 == y1))) {
+                        int xSR = x2 - x1 < 0 ? x2 - 1 : x2 + 1, ySR = CountTurn%2 == 1 ? y2 + 1 : y2 - 1;
                         boolean isPusta = true;
                         for (int i = 0; i < 2; i++) {
 
@@ -408,7 +416,7 @@ class S24218P01 {
                                     }
                                     case 1 -> {
 
-                                        if (x == xSR && y == ySR && s1 != ThisColor && isPusta) {
+                                        if (x == xSR && y == ySR && s1 != CountTurn%2 && isPusta) {
                                             //change to beaten stan
 
 
