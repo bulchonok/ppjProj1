@@ -29,7 +29,7 @@ public class dv {
         System.out.println(Long.toBinaryString(white2));
 
 
-                int x, y, s1, s2, s3, CountTurn = 0;
+                int x = 0, y=0, s1=0, s2=0, s3=0, CountTurn = 0;
                 boolean gameEnd = false, printed = false;
 
 
@@ -143,7 +143,7 @@ public class dv {
 
                                 isQueen = (s2 == 1);
                                 isChosen = true;
-                                System.out.println("intsc:" + intSc + " charsc" + charSc + " x:" + x + "y:" + y + "s3:" + s3 + "x1:" + x1 + "y1:" + y1);
+                                System.out.println("intsc:" + intSc + " charsc:" + charSc + " x:" + x + " y:" + y + " s3:" + s3 + " x1:" + x1 + " y1:" + y1);
 
                             } else {
                                 System.out.println("wrong color");
@@ -247,11 +247,11 @@ public class dv {
                                     s3 = (int) (difBuffer % 2);
                                     difBuffer = difBuffer >> 1;
 
-
+//
                                     if ((x == x2) && (y == y2)) {
                                         isNotEmpty++;
                                     }
-                                    if ((s2 == CountTurn % 2) && ((x == xBeated) && (y == yBeated))) {
+                                    if ((s1 != CountTurn % 2) && ((x == xBeated) && (y == yBeated))) {
                                         isBeated = true;
                                     }
                                 }
@@ -261,6 +261,7 @@ public class dv {
                         } else {
                             MoveNotMade++;
                             System.out.println("wrong move: can't beat ");
+                            System.out.println("intsc:" + intSc + " charsc" + charSc + " x:" + x + " y:" + y + " s3:" + s3 + " x1:" + x1 + " y1:" + y1+" x2:"+x2+" y2:" +y2+" xBeaten:"+xBeated+" yBeated:"+yBeated);
                         }
 
 
