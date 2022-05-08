@@ -29,18 +29,20 @@ public class dv {
         System.out.println(Long.toBinaryString(white2));
 
 
-                int x = 0, y=0, s1=0, s2=0, s3=0, CountTurn = 0;
-                boolean gameEnd = false, printed = false;
+                int x = 0, y=0, s1=0, s2=0, s3=0, CountTurn = 0, x1 = 0, y1 = 0, x2 = 0, y2 = 0;
+                boolean gameEnd = false, printed = false,BeatingHappened=false;
+                boolean pass =false;
 
 
 
         while (!gameEnd) {
 
+
             //board print
-                    int Counter;
-                    long difBuffer = 0, buffer = 0;
-                    boolean isBeated = false;
-                    int xBeated=0,yBeated=0;
+            int Counter;
+            long difBuffer = 0, buffer = 0;
+            boolean isBeated = false;
+            int xBeated = 0, yBeated = 0;
 
             for (int i = 7; i > -1; i--) {
                 System.out.print((char) (65 + i) + " |");
@@ -90,13 +92,27 @@ public class dv {
                 System.out.print("| " + (char) (65 + i));
                 System.out.println();
             }
+            //if want to beat multiple times in a row
+            if (CountTurn != 0 && BeatingHappened) {
+                System.out.println("Can you still beat?\n1: Tak / 2: Nie");
+                switch (scannerInt.nextInt()) {
+                    case 1 -> {
+                    }
+                    case 2 -> {
+                        x1 = x2;
+                        y1 = y2;
+                        pass=true;
 
+                    }
+                }
+                BeatingHappened = false;
+            }
             //selection
-            int x1 = 0, y1 = 0;
+             x1 = 0; y1 = 0;
             boolean isChosen = false, isQueen = false;
             char charSc = 0;
             int intSc = 0;
-
+            if (!pass){
             CountTurn++;
             System.out.println(CountTurn % 2 == 1 ? "white's turn" : "black's turn");
             while (!isChosen) {
@@ -154,9 +170,11 @@ public class dv {
 
                 }
             }
+        }
+            pass=false;
             //movement
             int MoveNotMade = 1;//for while to work
-            int x2 = 0, y2 = 0;
+             x2 = 0; y2 = 0;
             boolean WhiteMove = CountTurn % 2 == 1;
 
             while (MoveNotMade != 0) {
@@ -181,8 +199,8 @@ public class dv {
                     boolean p1 = (WhiteMove && (y2 - y1 == -1)),
                             p2 = (!WhiteMove && (y2 - y1 == 1)),
                             p3 = ((x2 - x1 == -1) || (x2 - x1 == 1)),
-                            p11 = (WhiteMove && (y2 - y1 == -2)),
-                            p12 = (!WhiteMove && (y2 - y1 == 2)),
+                            p11 = ((y2 - y1 == -2)),
+                            p12 = ((y2 - y1 == 2)),
                             p13 = ((x2 - x1 == -2) || (x2 - x1 == 2));
 
                     if ((p1 || p2) && p3) {
@@ -224,7 +242,6 @@ public class dv {
                                int isNotEmpty = 0;
 
 
-                        for (int i = 0; i < 2; i++) {
                             for (int k = 1; k < 5; k++) {
                                 switch (k) {
 
@@ -256,12 +273,11 @@ public class dv {
                                     }
                                 }
                             }
-                        }
+
                         if (isNotEmpty == 0 && isBeated) {
                         } else {
                             MoveNotMade++;
-                            System.out.println("wrong move: can't beat ");
-                            System.out.println("intsc:" + intSc + " charsc" + charSc + " x:" + x + " y:" + y + " s3:" + s3 + " x1:" + x1 + " y1:" + y1+" x2:"+x2+" y2:" +y2+" xBeaten:"+xBeated+" yBeated:"+yBeated);
+                            System.out.println("wrong move: can't be beaten ");
                         }
 
 
@@ -281,8 +297,63 @@ public class dv {
                         charSc = scannerChar.next().charAt(0);
                         intSc = scannerInt.nextInt();
                     }
+                            y2 = ((int) charSc - 64) - 1;
+                            x2 = intSc - 1;
+                            MoveNotMade = 0;
+                    boolean Qp1=(x2==x1)&&(y2!=y1),
+                            Qp2=(y2==y1)&&(x2!=x1),
+                            Qp3=(y2-y1==x1-x2)&&(x2-x1!=0),
+                            Qp4=(y2-y1==x2-x1)&&(x2-x1!=0);
+                    int checkersOnTheWay=0;
 
-                    //if ()
+                    if (Qp1) {
+                        for (int k = 1; k < 5; k++) {
+                            switch (k) {
+
+                                case 1 -> difBuffer = black1;
+                                case 2 -> difBuffer = black2;
+                                case 3 -> difBuffer = white1;
+                                case 4 -> difBuffer = white2;
+                            }
+                            for (int var = 0; var < 6; var++) {
+
+                                x = (int) (difBuffer % 8);
+                                difBuffer = difBuffer >> 3;
+                                y = (int) (difBuffer % 8);
+                                difBuffer = difBuffer >> 3;
+
+                                s1 = (int) (difBuffer % 2);
+                                difBuffer = difBuffer >> 1;
+                                s2 = (int) (difBuffer % 2);
+                                difBuffer = difBuffer >> 1;
+                                s3 = (int) (difBuffer % 2);
+                                difBuffer = difBuffer >> 1;
+
+                                if (x==x2&&y==y2){
+                                    MoveNotMade++;
+                                    System.out.println("wrong move: path blocked");
+                                }
+
+                                if ((s1==CountTurn%2)&&(x==x2)&&(((y<y2)&&(y>y1))||((y>y2)&&(y<y1)))){
+                                    MoveNotMade++;
+                                    System.out.println("checker can't be beaten");
+                                }
+                                if ((s1!=CountTurn%2)&&(x==x2)&&(((y<y2)&&(y>y1))||((y>y2)&&(y<y1)))){
+                                    checkersOnTheWay++;
+                                    xBeated=x;
+                                    yBeated=y;
+                                }
+
+                            }
+                        }
+                        if (checkersOnTheWay>1){
+                            MoveNotMade++;
+                            System.out.println("more than one checker can't be eaten");
+                            isBeated=false;
+                        }else{
+                            isBeated=true;
+                        }
+                    }
                 }
             }
             //rewriting
@@ -322,6 +393,7 @@ public class dv {
                         x=0;
                         y=0;
                     }
+                    BeatingHappened=true;
                 }
                 if ( (s2==0) && ((y==7&&s1==0)||(y==0&&s1==1)) ){
                     s2=1;
