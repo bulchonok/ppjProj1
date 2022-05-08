@@ -307,6 +307,14 @@ int wrongcounter=-1;
                         charSc = scannerChar.next().charAt(0);
                         intSc = scannerInt.nextInt();
                     }
+                    if (pass){
+                        System.out.println("if you don't beat in 3 attempts you will be redirected");
+                    }
+                    if (wrongcounter==2&&pass){
+                        System.out.println("checker can't make a move->processing...");
+                        battlepass=false;
+                        break;
+                    }
                     if (charSc < 65 || charSc > 72 || intSc < 1 || intSc > 8) {
                         System.out.println("Wrong move: make a move");
                         charSc = scannerChar.next().charAt(0);
@@ -315,8 +323,8 @@ int wrongcounter=-1;
                     y2 =((int) charSc - 64) - 1;
                     x2 = intSc - 1;
                     MoveNotMade = 0;
-                    boolean Qp3 = (y2 - y1 == x1 - x2) && (x2 - x1 != 0),
-                            Qp4 = (y2 - y1 == x2 - x1) && (x2 - x1 != 0);
+                    boolean Qp3 = (y2 - y1 == x1 - x2) && (x2 - x1 != 0)&&(x1!=x2)&&(y1!=y2),
+                            Qp4 = (y2 - y1 == x2 - x1) && (x2 - x1 != 0)&&(x1!=x2)&&(y1!=y2);
                             int checkersOnTheWay = 0;
 
 
@@ -343,18 +351,26 @@ int wrongcounter=-1;
                                 s3 = (int) (difBuffer % 2);
                                 difBuffer = difBuffer >> 1;
 
+
+
                                 if (x == x2 && y == y2) {
+                                    System.out.println(" x:"+xBeated+" y:"+yBeated+" x1:"+x1+" y1:"+y1+" x2:"+x2+" y2:"+y2);
+                                    MoveNotMade++;
+                                    System.out.println("wrong move: path blocked");
+                                }
+                                if (x == x1 && y == y1) {
+                                    System.out.println(" x:"+xBeated+" y:"+yBeated+" x1:"+x1+" y1:"+y1+" x2:"+x2+" y2:"+y2);
                                     MoveNotMade++;
                                     System.out.println("wrong move: path blocked");
                                 }
                                 if (Qp3) {
                                     if (x2<x1){
                                         if (x<x1&&x>x2){
-                                            if ((s1 == CountTurn % 2) && ((x -(8- y)) == (x2 -(8- y2)))) {
+                                            if ((s1 == CountTurn % 2) && ((x + y) == (x2 + y2))) {
                                                 MoveNotMade++;
                                                 System.out.println("checker can't be beaten");
                                             }
-                                            if ((s1 != CountTurn % 2) && ((x -(8- y)) == (x2 -(8- y2)))) {
+                                            if ((s1 != CountTurn % 2) && ((x + y) == (x2 + y2))) {
                                                 checkersOnTheWay++;
                                                 xBeated = x;
                                                 yBeated = y;
@@ -367,11 +383,11 @@ int wrongcounter=-1;
 
                                     }else {
                                         if (x>x1&&x<x2){
-                                            if ((s1 == CountTurn % 2) && ((x -(8- y)) == (x2 -(8- y2)))) {
+                                            if ((s1 == CountTurn % 2) && ((x + y) == (x2 + y2))) {
                                                 MoveNotMade++;
                                                 System.out.println("checker can't be beaten");
                                             }
-                                            if ((s1 != CountTurn % 2) && ((x -(8- y)) == (x2 -(8- y2)))) {
+                                            if ((s1 != CountTurn % 2) && ((x + y) == (x2 + y2))) {
                                                 checkersOnTheWay++;
                                                 xBeated = x;
                                                 yBeated = y;
@@ -425,8 +441,10 @@ int wrongcounter=-1;
                             isBeated = true;
                             battlepass = true;
                         }
+                    }else  {
+                        MoveNotMade++;
+                        System.out.println("wrong move");
                     }
-
                 }
             }
             //rewriting
