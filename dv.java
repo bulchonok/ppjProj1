@@ -10,11 +10,11 @@ public class dv {
         for (int i = 1; i < 4; i++) {
             for (int j = 1; j < 5; j++) {
                 if (counter < 6) {
-                    black1 = (((((black1 << 3) + 0b100) << 3) + i - 1) << 3) + (((2 * j) - (i % 2)) - 1);
-                    white1 = (((((white1 << 3) + 0b101) << 3) + i + 4) << 3) + ((2 * j) - ((i+1) % 2))-1;
+                    black1 = (((((black1 << 4) + 0b1100) << 3) + i - 1) << 3) + (((2 * j) - (i % 2)) - 1);
+                    white1 = (((((white1 << 4) + 0b1101) << 3) + i + 4) << 3) + ((2 * j) - ((i+1) % 2))-1;
                 } else {
-                    black2 = (((((black2 << 3) + 0b100) << 3) + i - 1) << 3) + (((2 * j) - (i % 2)) - 1);
-                    white2 = (((((white2 << 3) + 0b101) << 3) + i + 4) << 3) +((2 * j) - ((i+1) % 2))-1;
+                    black2 = (((((black2 << 4) + 0b1100) << 3) + i - 1) << 3) + (((2 * j) - (i % 2)) - 1);
+                    white2 = (((((white2 << 4) + 0b1101) << 3) + i + 4) << 3) +((2 * j) - ((i+1) % 2))-1;
                 }
                 counter++;
 
@@ -27,15 +27,18 @@ public class dv {
         System.out.println(Long.toBinaryString(white2));
 
 
-                int x, y, s1, s2, s3, CountTurn = 0, ChooseLong;
-                long difBuffer = 0, buffer = 0;
+                int x, y, s1, s2, s3, CountTurn = 0;
                 boolean gameEnd = false, printed = false;
-                int Counter;
+
 
 
         while (!gameEnd) {
 
             //board print
+                    int Counter;
+                    long difBuffer = 0, buffer = 0;
+                    boolean isBeated = false;
+                    int xBeated=0,yBeated=0;
 
             for (int i = 7; i > -1; i--) {
                 System.out.print((char) (65 + i) + " |");
@@ -87,10 +90,10 @@ public class dv {
             }
 
             //selection
-                    int x1 = 0, y1 = 0;
-                    boolean isChosen = false, isQueen = false;
-                    char charSc = 0;
-                    int intSc = 0;
+            int x1 = 0, y1 = 0;
+            boolean isChosen = false, isQueen = false;
+            char charSc = 0;
+            int intSc = 0;
 
             CountTurn++;
             System.out.println(CountTurn % 2 == 1 ? "white's turn" : "black's turn");
@@ -106,8 +109,8 @@ public class dv {
                     intSc = scannerInt.nextInt();
                 }
 
-                    x1 = intSc - 1;
-                    y1 = ((int) charSc - 64) - 1;
+                x1 = intSc - 1;
+                y1 = ((int) charSc - 64) - 1;
 
                 for (int k = 1; k < 5; k++) {
                     switch (k) {
@@ -150,38 +153,76 @@ public class dv {
                 }
             }
             //movement
-                        int MoveNotMade=1;//for while to work
-                        int x2=0,y2=0;
-                        boolean WhiteMove=CountTurn%2==1;
+            int MoveNotMade = 1;//for while to work
+            int x2 = 0, y2 = 0;
+            boolean WhiteMove = CountTurn % 2 == 1;
 
-                while (MoveNotMade != 0) {
+            while (MoveNotMade != 0) {
 
-                    if (!isQueen){
+                if (!isQueen) {
 
-                        if (MoveNotMade != 0) {
-                            System.out.println("make a move:");//max 3 for checker
-                            charSc = scannerChar.next().charAt(0);//char scanner
-                            intSc = scannerInt.nextInt();
+                    if (MoveNotMade != 0) {
+                        System.out.println("make a move:");//max 3 for checker
+                        charSc = scannerChar.next().charAt(0);//char scanner
+                        intSc = scannerInt.nextInt();
+                    }
+                    if (charSc < 65 || charSc > 72 || intSc < 1 || intSc > 8) {
+                        System.out.println("Wrong move: make a move");
+                        charSc = scannerChar.next().charAt(0);//char scanner
+                        intSc = scannerInt.nextInt();
+                    }
+
+                    y2 = ((int) charSc - 64) - 1;
+                    x2 = intSc - 1;
+                    MoveNotMade = 0;
+
+                    boolean p1 = (WhiteMove && (y2 - y1 == -1)),
+                            p2 = (!WhiteMove && (y2 - y1 == 1)),
+                            p3 = ((x2 - x1 == -1) || (x2 - x1 == 1)),
+                            p11 = (WhiteMove && (y2 - y1 == -2)),
+                            p12 = (!WhiteMove && (y2 - y1 == 2)),
+                            p13 = ((x2 - x1 == -2) || (x2 - x1 == 2));
+
+                    if ((p1 || p2) && p3) {
+
+                        for (int k = 1; k < 5; k++) {
+                            switch (k) {
+
+                                case 1 -> difBuffer = black1;
+                                case 2 -> difBuffer = black2;
+                                case 3 -> difBuffer = white1;
+                                case 4 -> difBuffer = white2;
+                            }
+                            for (int var = 0; var < 6; var++) {
+
+                                x = (int) (difBuffer % 8);
+                                difBuffer = difBuffer >> 3;
+                                y = (int) (difBuffer % 8);
+                                difBuffer = difBuffer >> 3;
+
+                                s1 = (int) (difBuffer % 2);
+                                difBuffer = difBuffer >> 1;
+                                s2 = (int) (difBuffer % 2);
+                                difBuffer = difBuffer >> 1;
+                                s3 = (int) (difBuffer % 2);
+                                difBuffer = difBuffer >> 1;
+
+                                if (x == x2 && y == y2) {     //check if there is a checker on path
+                                    System.out.println("wrong move: path blocked");
+                                    MoveNotMade++;
+                                }
+
+                            }
                         }
-                        if (charSc < 65 || charSc > 72 || intSc < 1 || intSc > 8) {
-                            System.out.println("Wrong move: make a move");
-                            charSc = scannerChar.next().charAt(0);//char scanner
-                            intSc = scannerInt.nextInt();
-                        }
 
-                            y2 = ((int) charSc - 64)-1;
-                            x2 = intSc-1;
-                            MoveNotMade=0;
+                    } else if ((p11 || p12) && p13) {
 
-                            boolean p1=(WhiteMove&& (y2-y1==-1)),
-                                    p2=(!WhiteMove&& (y2-y1== 1)),
-                                    p3= ((x2-x1==-1)||(x2-x1==1)),
-                                    p11=(WhiteMove&& (y2-y1==-2)),
-                                    p12=(!WhiteMove&& (y2-y1== 2)),
-                                    p13= ((x2-x1==-2)||(x2-x1==2));
+                                xBeated = (x2 + x1) / 2;
+                                yBeated = (y2 + y1) / 2;
+                               int isNotEmpty = 0;
 
-                        if( (p1 || p2) && p3 ) {
 
+                        for (int i = 0; i < 2; i++) {
                             for (int k = 1; k < 5; k++) {
                                 switch (k) {
 
@@ -204,78 +245,92 @@ public class dv {
                                     s3 = (int) (difBuffer % 2);
                                     difBuffer = difBuffer >> 1;
 
-                                    if (x == x2 && y == y2) {     //check if there is a checker on path
-                                        System.out.println("wrong move: path blocked");
-                                        MoveNotMade++;
+
+                                    if ((x == x2) && (y == y2)) {
+                                        isNotEmpty++;
                                     }
-
-                                }
-                            }
-
-                        }else
-                            if ( (p11 || p12) && p13 ) {
-
-                                        int xBeated = (x2 + x1) / 2,
-                                            yBeated = (y2 + y1) / 2,
-                                            isNotEmpty =0,
-                                            turnBeated;
-                                        boolean isBeated = false;
-
-                                for (int i = 0; i < 2; i++) {
-                                    for (int k = 1; k < 5; k++) {
-                                        switch (k) {
-
-                                            case 1 -> difBuffer = black1;
-                                            case 2 -> difBuffer = black2;
-                                            case 3 -> difBuffer = white1;
-                                            case 4 -> difBuffer = white2;
-                                        }
-                                        for (int var = 0; var < 6; var++) {
-
-                                            x = (int) (difBuffer % 8);
-                                            difBuffer = difBuffer >> 3;
-                                            y = (int) (difBuffer % 8);
-                                            difBuffer = difBuffer >> 3;
-
-                                            s1 = (int) (difBuffer % 2);
-                                            difBuffer = difBuffer >> 1;
-                                            s2 = (int) (difBuffer % 2);
-                                            difBuffer = difBuffer >> 1;
-                                            s3 = (int) (difBuffer % 2);
-                                            difBuffer = difBuffer >> 1;
-
-                                            switch (i) {
-
-                                                case 0 ->{
-                                                    if ((x==x2)&&(y==y2)){
-                                                        isNotEmpty++;
-                                                    }
-                                                    if ((s2 == CountTurn % 2) && ((x == xBeated) && (y == yBeated))) {
-                                                        isBeated = true;
-                                                        turnBeated=k;
-                                                    }
-                                                }
-
-                                                case 1 -> {
-                                                    if (isNotEmpty==0 && isBeated){
-                                                    }else{
-                                                        MoveNotMade++;
-                                                        System.out.println("wrong move: can't beat ");}
-                                                }
-                                            }
-                                        }
+                                    if ((s2 == CountTurn % 2) && ((x == xBeated) && (y == yBeated))) {
+                                        isBeated = true;
                                     }
                                 }
-
-
                             }
+                        }
+                        if (isNotEmpty == 0 && isBeated) {
+                        } else {
+                            MoveNotMade++;
+                            System.out.println("wrong move: can't beat ");
+                        }
 
 
+                    } else {
+                        MoveNotMade++;
+                        System.out.println("wrong move");
+                    }
+                } else {
+                    //////if is queen
+                    if (MoveNotMade != 0) {
+                        System.out.println("make a move:");
+                        charSc = scannerChar.next().charAt(0);
+                        intSc = scannerInt.nextInt();
+                    }
+                    if (charSc < 65 || charSc > 72 || intSc < 1 || intSc > 8) {
+                        System.out.println("Wrong move: make a move");
+                        charSc = scannerChar.next().charAt(0);
+                        intSc = scannerInt.nextInt();
+                    }
 
+                    //if ()
+                }
+            }
+            //rewriting
+            System.out.println("board processing...");
+            for (int k = 1; k <5 ; k++) {
+            buffer=0b1;
+            switch (k) {
+
+                case 1 -> difBuffer = black1;
+                case 2 -> difBuffer = black2;
+                case 3 -> difBuffer = white1;
+                case 4 -> difBuffer = white2;
+            }
+            for (int var = 0; var < 6; var++) {
+
+                x = (int) (difBuffer % 8);
+                difBuffer = difBuffer >> 3;
+                y = (int) (difBuffer % 8);
+                difBuffer = difBuffer >> 3;
+
+                s1 = (int) (difBuffer % 2);
+                difBuffer = difBuffer >> 1;
+                s2 = (int) (difBuffer % 2);
+                difBuffer = difBuffer >> 1;
+                s3 = (int) (difBuffer % 2);
+                difBuffer = difBuffer >> 1;
+
+                if ((s3 == 1) && (x == x1) && (y == y1)){
+                    x=x2;
+                    y=y2;
+                }
+                if (isBeated){
+                    if ((x==xBeated)&&(y==yBeated)){
+                        s3=0;
                     }
                 }
-            //rewriting
+                if (s2==0){
 
+                }
+
+                    buffer = (((((((((buffer << 1) + s3) << 1) + s2) << 1) + s1) << 3) + y) << 3) + x;
+
+            }
+            switch (k) {
+                case 1 -> black1 = buffer;
+                case 2 -> black2 = buffer;
+                case 3 -> white1 = buffer;
+                case 4 -> white2 = buffer;
+
+            }
+        }
 
 
     }
