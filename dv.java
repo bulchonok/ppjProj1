@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class dv {
     public static void main(String[] args) {
-                long black1 = 0, black2 = 0, white1 = 0, white2 = 0;
+                long black1 = 1, black2 = 1, white1 = 1, white2 = 1;
                 int counter = 0;
                 Scanner scannerChar = new Scanner(System.in);
                 Scanner scannerInt = new Scanner(System.in);
@@ -10,11 +10,13 @@ public class dv {
         for (int i = 1; i < 4; i++) {
             for (int j = 1; j < 5; j++) {
                 if (counter < 6) {
-                    black1 = (((((black1 << 4) + 0b1100) << 3) + i - 1) << 3) + (((2 * j) - (i % 2)) - 1);
-                    white1 = (((((white1 << 4) + 0b1101) << 3) + i + 4) << 3) + ((2 * j) - ((i+1) % 2))-1;
+
+                    black1 = (((((black1 << 3) + 0b100) << 3) + i - 1) << 3) + (((2 * j) - (i % 2)) - 1);
+                    white1 = (((((white1 << 3) + 0b101) << 3) + i + 4) << 3) + ((2 * j) - ((i+1) % 2))-1;
                 } else {
-                    black2 = (((((black2 << 4) + 0b1100) << 3) + i - 1) << 3) + (((2 * j) - (i % 2)) - 1);
-                    white2 = (((((white2 << 4) + 0b1101) << 3) + i + 4) << 3) +((2 * j) - ((i+1) % 2))-1;
+
+                    black2 = (((((black2 << 3) + 0b100) << 3) + i - 1) << 3) + (((2 * j) - (i % 2)) - 1);
+                    white2 = (((((white2 << 3) + 0b101) << 3) + i + 4) << 3) +((2 * j) - ((i+1) % 2))-1;
                 }
                 counter++;
 
@@ -316,13 +318,14 @@ public class dv {
                         s3=0;
                     }
                 }
-                if (s2==0){
-
+                if ( (s2==0) && ((y==7&&s1==0)||(y==0&&s1==1)) ){
+                    s2=1;
                 }
 
                     buffer = (((((((((buffer << 1) + s3) << 1) + s2) << 1) + s1) << 3) + y) << 3) + x;
 
             }
+                System.out.println(Long.toBinaryString(buffer));
             switch (k) {
                 case 1 -> black1 = buffer;
                 case 2 -> black2 = buffer;
@@ -331,7 +334,6 @@ public class dv {
 
             }
         }
-
 
     }
 }}
