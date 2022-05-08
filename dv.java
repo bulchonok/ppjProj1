@@ -2,10 +2,10 @@ import java.util.Scanner;
 
 public class dv {
     public static void main(String[] args) {
-                long black1 = 1, black2 = 1, white1 = 1, white2 = 1;
-                int counter = 0;
-                Scanner scannerChar = new Scanner(System.in);
-                Scanner scannerInt = new Scanner(System.in);
+        long black1 = 1, black2 = 1, white1 = 1, white2 = 1;
+        int counter = 0;
+        Scanner scannerChar = new Scanner(System.in);
+        Scanner scannerInt = new Scanner(System.in);
 
         for (int i = 1; i < 4; i++) {
             for (int j = 1; j < 5; j++) {
@@ -29,9 +29,9 @@ public class dv {
         System.out.println(Long.toBinaryString(white2));
 
 
-                int x = 0, y=0, s1=0, s2=0, s3=0, CountTurn = 0, x1 = 0, y1 = 0, x2 = 0, y2 = 0;
-                boolean gameEnd = false, printed = false,BeatingHappened=false;
-                boolean pass =false,battlepass=false;
+        int x = 0, y=0, s1=0, s2=0, s3=0, CountTurn = 0, x1 = 0, y1 = 0, x2 = 0, y2 = 0;
+        boolean gameEnd = false, printed = false,BeatingHappened=false;
+        boolean pass =false,battlepass=false;
 
 
 
@@ -78,7 +78,7 @@ public class dv {
                                         case 1, 2 -> System.out.print(s2 == 1 ? '\u2655' + " " : '\u2659' + " ");
                                         case 3, 4 -> System.out.print(s2 == 1 ?  '\u265B'+ " " : '\u265F' + " ");
                                     }
-                                }else if (s3==0)System.out.print((i + j) % 2 == 0 ? '\u2B1C' + " " : '\u2B1B' + " ");
+                                }
                             } else {
                                 Counter++;
                             }
@@ -181,7 +181,7 @@ public class dv {
             x2 = 0;
             y2 = 0;
             boolean WhiteMove = CountTurn % 2 == 1;
-int wrongcounter=-1;
+            int wrongcounter=-1;
             while (MoveNotMade != 0) {
 
                 if (!isQueen) {
@@ -307,14 +307,6 @@ int wrongcounter=-1;
                         charSc = scannerChar.next().charAt(0);
                         intSc = scannerInt.nextInt();
                     }
-                    if (pass){
-                        System.out.println("if you don't beat in 3 attempts you will be redirected");
-                    }
-                    if (wrongcounter==2&&pass){
-                        System.out.println("checker can't make a move->processing...");
-                        battlepass=false;
-                        break;
-                    }
                     if (charSc < 65 || charSc > 72 || intSc < 1 || intSc > 8) {
                         System.out.println("Wrong move: make a move");
                         charSc = scannerChar.next().charAt(0);
@@ -323,9 +315,10 @@ int wrongcounter=-1;
                     y2 =((int) charSc - 64) - 1;
                     x2 = intSc - 1;
                     MoveNotMade = 0;
-                    boolean Qp3 = (y2 - y1 == x1 - x2) && (x2 - x1 != 0)&&(x1!=x2)&&(y1!=y2),
-                            Qp4 = (y2 - y1 == x2 - x1) && (x2 - x1 != 0)&&(x1!=x2)&&(y1!=y2);
-                            int checkersOnTheWay = 0;
+
+                    boolean Qp3 = (y2 - y1 == x1 - x2) && (x2 - x1 != 0),
+                            Qp4 = (y2 - y1 == x2 - x1) && (x2 - x1 != 0);
+                    int checkersOnTheWay = 0;
 
 
                     if (Qp3||Qp4) {
@@ -351,15 +344,7 @@ int wrongcounter=-1;
                                 s3 = (int) (difBuffer % 2);
                                 difBuffer = difBuffer >> 1;
 
-
-
                                 if (x == x2 && y == y2) {
-                                    System.out.println(" x:"+xBeated+" y:"+yBeated+" x1:"+x1+" y1:"+y1+" x2:"+x2+" y2:"+y2);
-                                    MoveNotMade++;
-                                    System.out.println("wrong move: path blocked");
-                                }
-                                if (x == x1 && y == y1) {
-                                    System.out.println(" x:"+xBeated+" y:"+yBeated+" x1:"+x1+" y1:"+y1+" x2:"+x2+" y2:"+y2);
                                     MoveNotMade++;
                                     System.out.println("wrong move: path blocked");
                                 }
@@ -378,9 +363,6 @@ int wrongcounter=-1;
                                             }
 
                                         }
-
-
-
                                     }else {
                                         if (x>x1&&x<x2){
                                             if ((s1 == CountTurn % 2) && ((x + y) == (x2 + y2))) {
@@ -441,10 +423,12 @@ int wrongcounter=-1;
                             isBeated = true;
                             battlepass = true;
                         }
-                    }else  {
+                    }else{
+
                         MoveNotMade++;
                         System.out.println("wrong move");
                     }
+
                 }
             }
             //rewriting
@@ -456,60 +440,60 @@ int wrongcounter=-1;
 
             }else{
 
-            for (int k = 1; k < 5; k++) {
-                buffer = 0b1;
-                switch (k) {
+                for (int k = 1; k < 5; k++) {
+                    buffer = 0b1;
+                    switch (k) {
 
-                    case 1 -> difBuffer = black1;
-                    case 2 -> difBuffer = black2;
-                    case 3 -> difBuffer = white1;
-                    case 4 -> difBuffer = white2;
-                }
-                for (int var = 0; var < 6; var++) {
-
-                    x = (int) (difBuffer % 8);
-                    difBuffer = difBuffer >> 3;
-                    y = (int) (difBuffer % 8);
-                    difBuffer = difBuffer >> 3;
-
-                    s1 = (int) (difBuffer % 2);
-                    difBuffer = difBuffer >> 1;
-                    s2 = (int) (difBuffer % 2);
-                    difBuffer = difBuffer >> 1;
-                    s3 = (int) (difBuffer % 2);
-                    difBuffer = difBuffer >> 1;
-
-                    if ((s3 == 1) && (x == x1) && (y == y1)) {
-                        x = x2;
-                        y = y2;
+                        case 1 -> difBuffer = black1;
+                        case 2 -> difBuffer = black2;
+                        case 3 -> difBuffer = white1;
+                        case 4 -> difBuffer = white2;
                     }
-                    if (isBeated) {
-                        if ((x == xBeated) && (y == yBeated)) {
-                            s3 = 0;
-                            s2 = 0;
-                            s1 = 0;
-                            x = 1;
-                            y = 0;
+                    for (int var = 0; var < 6; var++) {
+
+                        x = (int) (difBuffer % 8);
+                        difBuffer = difBuffer >> 3;
+                        y = (int) (difBuffer % 8);
+                        difBuffer = difBuffer >> 3;
+
+                        s1 = (int) (difBuffer % 2);
+                        difBuffer = difBuffer >> 1;
+                        s2 = (int) (difBuffer % 2);
+                        difBuffer = difBuffer >> 1;
+                        s3 = (int) (difBuffer % 2);
+                        difBuffer = difBuffer >> 1;
+
+                        if ((s3 == 1) && (x == x1) && (y == y1)) {
+                            x = x2;
+                            y = y2;
                         }
-                        BeatingHappened = true;
+                        if (isBeated) {
+                            if ((x == xBeated) && (y == yBeated)) {
+                                s3 = 0;
+                                s2 = 0;
+                                s1 = 0;
+                                x = 0;
+                                y = 0;
+                            }
+                            BeatingHappened = true;
+                        }
+                        if ((s2 == 0) && ((y == 7 && s1 == 0) || (y == 0 && s1 == 1))) {
+                            s2 = 1;
+                        }
+
+                        buffer = (((((((((buffer << 1) + s3) << 1) + s2) << 1) + s1) << 3) + y) << 3) + x;
+
                     }
-                    if ((s2 == 0) && ((y == 7 && s1 == 0) || (y == 0 && s1 == 1))) {
-                        s2 = 1;
+                    System.out.println(Long.toBinaryString(buffer));
+                    switch (k) {
+                        case 1 -> black1 = buffer;
+                        case 2 -> black2 = buffer;
+                        case 3 -> white1 = buffer;
+                        case 4 -> white2 = buffer;
+
                     }
-
-                    buffer = (((((((((buffer << 1) + s3) << 1) + s2) << 1) + s1) << 3) + y) << 3) + x;
-
-                }
-                System.out.println(Long.toBinaryString(buffer));
-                switch (k) {
-                    case 1 -> black1 = buffer;
-                    case 2 -> black2 = buffer;
-                    case 3 -> white1 = buffer;
-                    case 4 -> white2 = buffer;
-
                 }
             }
-        }
 
-    }
-}}
+        }
+    }}
