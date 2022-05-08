@@ -316,6 +316,10 @@ public class dv {
                 if (isBeated){
                     if ((x==xBeated)&&(y==yBeated)){
                         s3=0;
+                        s2=0;
+                        s1=0;
+                        x=0;
+                        y=0;
                     }
                 }
                 if ( (s2==0) && ((y==7&&s1==0)||(y==0&&s1==1)) ){
