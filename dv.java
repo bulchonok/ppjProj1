@@ -12,10 +12,10 @@ public class dv {
                 if (counter < 6) {
 
                     black1 = (((((black1 << 3) + 0b100) << 3) + i - 1) << 3) + (((2 * j) - (i % 2)) - 1);
-                    white1 = (((((white1 << 3) + 0b111) << 3) + i + 4) << 3) + ((2 * j) - ((i+1) % 2))-1;
+                    white1 = (((((white1 << 3) + 0b101) << 3) + i + 4) << 3) + ((2 * j) - ((i+1) % 2))-1;
                 } else {
 
-                    black2 = (((((black2 << 3) + 0b110) << 3) + i - 1) << 3) + (((2 * j) - (i % 2)) - 1);
+                    black2 = (((((black2 << 3) + 0b100) << 3) + i - 1) << 3) + (((2 * j) - (i % 2)) - 1);
                     white2 = (((((white2 << 3) + 0b101) << 3) + i + 4) << 3) +((2 * j) - ((i+1) % 2))-1;
                 }
                 counter++;
@@ -23,6 +23,9 @@ public class dv {
 
             }
         }
+        long gamedeadend=0b1<<30;
+        gamedeadend=gamedeadend<<24;
+
         System.out.println(Long.toBinaryString(black1));
         System.out.println(Long.toBinaryString(black2));
         System.out.println(Long.toBinaryString(white1));
@@ -78,13 +81,19 @@ public class dv {
                                         case 1, 2 -> System.out.print(s2 == 1 ? '\u2655' + " " : '\u2659' + " ");
                                         case 3, 4 -> System.out.print(s2 == 1 ?  '\u265B'+ " " : '\u265F' + " ");
                                     }
+                                    printed=true;
+                                }else if (s3==0){
+
+                                    Counter=24;
                                 }
+
+
                             } else {
                                 Counter++;
                             }
                         }
-                        if (Counter == 24) System.out.print((i + j) % 2 == 0 ? '\u2B1C' + " " : '\u2B1B' + " ");
-                    }
+                    }if (!printed&&Counter >= 24) System.out.print((i + j) % 2 == 0 ? '\u2B1C' + " " : '\u2B1B' + " ");
+                    printed=false;
 
                 }
 
@@ -241,7 +250,7 @@ public class dv {
                                 s3 = (int) (difBuffer % 2);
                                 difBuffer = difBuffer >> 1;
 
-                                if (x == x2 && y == y2) {     //check if there is a checker on path
+                                if (s3==1&&x == x2 && y == y2) {     //check if there is a checker on path
                                     System.out.println("wrong move: path blocked");
                                     MoveNotMade++;
                                 }
@@ -279,10 +288,10 @@ public class dv {
                                 difBuffer = difBuffer >> 1;
 
 //
-                                if ((x == x2) && (y == y2)) {
+                                if (s3==1&&(x == x2) && (y == y2)) {
                                     isNotEmpty++;
                                 }
-                                if ((s1 != CountTurn % 2) && ((x == xBeated) && (y == yBeated))) {
+                                if (s3==1&&(s1 != CountTurn % 2) && ((x == xBeated) && (y == yBeated))) {
                                     isBeated = true;
                                     battlepass = true;
                                 }
@@ -344,18 +353,18 @@ public class dv {
                                 s3 = (int) (difBuffer % 2);
                                 difBuffer = difBuffer >> 1;
 
-                                if (x == x2 && y == y2) {
+                                if (s3==1&&x == x2 && y == y2) {
                                     MoveNotMade++;
                                     System.out.println("wrong move: path blocked");
                                 }
                                 if (Qp3) {
                                     if (x2<x1){
                                         if (x<x1&&x>x2){
-                                            if ((s1 == CountTurn % 2) && ((x + y) == (x2 + y2))) {
+                                            if (s3==1&&(s1 == CountTurn % 2) && ((x + y) == (x2 + y2))) {
                                                 MoveNotMade++;
                                                 System.out.println("checker can't be beaten");
                                             }
-                                            if ((s1 != CountTurn % 2) && ((x + y) == (x2 + y2))) {
+                                            if (s3==1&&(s1 != CountTurn % 2) && ((x + y) == (x2 + y2))) {
                                                 checkersOnTheWay++;
                                                 xBeated = x;
                                                 yBeated = y;
@@ -365,11 +374,11 @@ public class dv {
                                         }
                                     }else {
                                         if (x>x1&&x<x2){
-                                            if ((s1 == CountTurn % 2) && ((x + y) == (x2 + y2))) {
+                                            if (s3==1&&(s1 == CountTurn % 2) && ((x + y) == (x2 + y2))) {
                                                 MoveNotMade++;
                                                 System.out.println("checker can't be beaten");
                                             }
-                                            if ((s1 != CountTurn % 2) && ((x + y) == (x2 + y2))) {
+                                            if (s3==1&&(s1 != CountTurn % 2) && ((x + y) == (x2 + y2))) {
                                                 checkersOnTheWay++;
                                                 xBeated = x;
                                                 yBeated = y;
@@ -383,11 +392,11 @@ public class dv {
                                     if (x2<x1){
                                         if (x<x1&&x>x2){
 
-                                            if ((s1 == CountTurn % 2) && ((x-y)==(x2-y2))) {
+                                            if (s3==1&&(s1 == CountTurn % 2) && ((x-y)==(x2-y2))) {
                                                 MoveNotMade++;
                                                 System.out.println("checker can't be beaten");
                                             }
-                                            if ((s1 != CountTurn % 2) && ((x-y)==(x2-y2))) {
+                                            if (s3==1&&(s1 != CountTurn % 2) && ((x-y)==(x2-y2))) {
                                                 checkersOnTheWay++;
                                                 xBeated = x;
                                                 yBeated = y;
@@ -397,11 +406,11 @@ public class dv {
                                     }else {
                                         if (x>x1&&x<x2){
 
-                                            if ((s1 == CountTurn % 2) && ((x-y)==(x2-y2))) {
+                                            if (s3==1&&(s1 == CountTurn % 2) && ((x-y)==(x2-y2))) {
                                                 MoveNotMade++;
                                                 System.out.println("checker can't be beaten");
                                             }
-                                            if ((s1 != CountTurn % 2) && ((x-y)==(x2-y2))) {
+                                            if (s3==1&&(s1 != CountTurn % 2) && ((x-y)==(x2-y2))) {
                                                 checkersOnTheWay++;
                                                 xBeated = x;
                                                 yBeated = y;
@@ -495,5 +504,17 @@ public class dv {
                 }
             }
 
-        }
+
+
+            if (black1==gamedeadend&&black2==gamedeadend){
+                System.out.println("White won");
+                gameEnd=true;
+            }else if (white1==gamedeadend&&white2==gamedeadend){
+                System.out.println("Black won");
+                gameEnd=true;
+            }
+
+
+
+                }
     }}
