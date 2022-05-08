@@ -12,10 +12,10 @@ public class dv {
                 if (counter < 6) {
 
                     black1 = (((((black1 << 3) + 0b100) << 3) + i - 1) << 3) + (((2 * j) - (i % 2)) - 1);
-                    white1 = (((((white1 << 3) + 0b101) << 3) + i + 4) << 3) + ((2 * j) - ((i+1) % 2))-1;
+                    white1 = (((((white1 << 3) + 0b111) << 3) + i + 4) << 3) + ((2 * j) - ((i+1) % 2))-1;
                 } else {
 
-                    black2 = (((((black2 << 3) + 0b100) << 3) + i - 1) << 3) + (((2 * j) - (i % 2)) - 1);
+                    black2 = (((((black2 << 3) + 0b110) << 3) + i - 1) << 3) + (((2 * j) - (i % 2)) - 1);
                     white2 = (((((white2 << 3) + 0b101) << 3) + i + 4) << 3) +((2 * j) - ((i+1) % 2))-1;
                 }
                 counter++;
@@ -75,8 +75,8 @@ public class dv {
                                 if (s3 == 1) {
 
                                     switch (k) {
-                                        case 1, 2 -> System.out.print(s2 == 1 ? '\u265B' + " " : '\u2659' + " ");
-                                        case 3, 4 -> System.out.print(s2 == 1 ? '\u2655' + " " : '\u265F' + " ");
+                                        case 1, 2 -> System.out.print(s2 == 1 ? '\u2655' + " " : '\u2659' + " ");
+                                        case 3, 4 -> System.out.print(s2 == 1 ?  '\u265B'+ " " : '\u265F' + " ");
                                     }
                                 }
                             } else {
@@ -132,7 +132,7 @@ public class dv {
                     }
 
                     x1 = intSc - 1;
-                    y1 = ((int) charSc - 64) - 1;
+                    y1 =((int) charSc - 64) - 1;
 
                     for (int k = 1; k < 5; k++) {
                         switch (k) {
@@ -312,12 +312,12 @@ int wrongcounter=-1;
                         charSc = scannerChar.next().charAt(0);
                         intSc = scannerInt.nextInt();
                     }
-                    y2 = ((int) charSc - 64) - 1;
+                    y2 =((int) charSc - 64) - 1;
                     x2 = intSc - 1;
                     MoveNotMade = 0;
                     boolean Qp3 = (y2 - y1 == x1 - x2) && (x2 - x1 != 0),
                             Qp4 = (y2 - y1 == x2 - x1) && (x2 - x1 != 0);
-                    int checkersOnTheWay = 0;
+                            int checkersOnTheWay = 0;
 
 
                     if (Qp3||Qp4) {
@@ -347,24 +347,78 @@ int wrongcounter=-1;
                                     MoveNotMade++;
                                     System.out.println("wrong move: path blocked");
                                 }
+                                if (Qp3) {
+                                    if (x2<x1){
+                                        if (x<x1&&x>x2){
+                                            if ((s1 == CountTurn % 2) && ((x -8- y) == (x2 -8- y2))) {
+                                                MoveNotMade++;
+                                                System.out.println("checker can't be beaten");
+                                            }
+                                            if ((s1 != CountTurn % 2) && ((x -8- y) == (x2 -8- y2))) {
+                                                checkersOnTheWay++;
+                                                xBeated = x;
+                                                yBeated = y;
+                                                System.out.println("wdwdsssssssssssssssssssssss");
+                                            }
 
-                                if ((s1 == CountTurn % 2) && ((x-y)==(x2-y2))&&(x!=x2)&&(y!=y2)) {
-                                    MoveNotMade++;
-                                    System.out.println("checker can't be beaten");
-                                }
-                                if ((s1 != CountTurn % 2) && ((x-y)==(x2-y2))&&(x!=x2)&&(y!=y2)) {
-                                    checkersOnTheWay++;
-                                    xBeated = x;
-                                    yBeated = y;
+                                        }
+                                    }else {
+                                        if (x>x1&&x<x2){
+                                            if ((s1 == CountTurn % 2) && ((x -8- y) == (x2 -8- y2))) {
+                                                MoveNotMade++;
+                                                System.out.println("checker can't be beaten");
+                                            }
+                                            if ((s1 != CountTurn % 2) && ((x -8- y) == (x2 -8- y2))) {
+                                                checkersOnTheWay++;
+                                                xBeated = x;
+                                                yBeated = y;
+                                                System.out.println("------------------------");
+                                            }
+
+                                        }
+                                    }
+
+                                }else if (Qp4){
+                                    if (x2<x1){
+                                        if (x<x1&&x>x2){
+
+                                            if ((s1 == CountTurn % 2) && ((x-y)==(x2-y2))) {
+                                                MoveNotMade++;
+                                                System.out.println("checker can't be beaten");
+                                            }
+                                            if ((s1 != CountTurn % 2) && ((x-y)==(x2-y2))) {
+                                                checkersOnTheWay++;
+                                                xBeated = x;
+                                                yBeated = y;
+                                                System.out.println("324234243423423423432");
+                                            }
+                                        }
+                                    }else {
+                                        if (x>x1&&x<x2){
+
+                                            if ((s1 == CountTurn % 2) && ((x-y)==(x2-y2))) {
+                                                MoveNotMade++;
+                                                System.out.println("checker can't be beaten");
+                                            }
+                                            if ((s1 != CountTurn % 2) && ((x-y)==(x2-y2))) {
+                                                checkersOnTheWay++;
+                                                xBeated = x;
+                                                yBeated = y;
+                                                System.out.println("00000000000000000000000");
+                                            }
+                                        }
+                                    }
+
                                 }
 
                             }
                         }
-                        if (checkersOnTheWay > 1) {
+                        if (checkersOnTheWay >1) {
                             MoveNotMade++;
                             System.out.println("more than one checker can't be eaten");
                             isBeated = false;
-                        } else {
+                        } else if(checkersOnTheWay==1){
+                            System.out.println(" x:"+xBeated+" y:"+yBeated+" x1:"+x1+" y1:"+y1+" x2:"+x2+" y2:"+y2);
                             isBeated = true;
                             battlepass = true;
                         }
